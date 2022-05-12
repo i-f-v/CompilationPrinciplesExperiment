@@ -1,0 +1,1 @@
+b(specification (definition (module module test1 { (definition (type_decl struct test2) ;) }) ;))
