@@ -3,18 +3,18 @@ parser grammar MIDLParser;
 options {
     tokenVocab = MIDLLexer;
 }
-specification: definition definition*;
+specification: definition+;
 
 definition
     : type_decl SEMI_COLON
     | module SEMI_COLON
     ;
 
-module: K_MODULE ID LEFT_BRACE definition definition* RIGHT_BRACE;
+module: K_MODULE ID LEFT_BRACE definition+ RIGHT_BRACE;
 
 type_decl
-    : struct_type   # complexStruct
-    | K_STRUCT ID   # emptyStruct
+    : struct_type
+    | K_STRUCT ID
     ;
 
 struct_type: K_STRUCT ID LEFT_BRACE member_list RIGHT_BRACE;
