@@ -1,0 +1,13 @@
+module  it {
+    struct e;
+    struct d1;
+    module w_w{
+        struct a;
+    };
+    struct b{
+        string s = "a";
+        int i;
+        long long  lli = 1 + 2 * 3;
+        char chars[5] = ['a','b','c','d','e'];
+    };
+};

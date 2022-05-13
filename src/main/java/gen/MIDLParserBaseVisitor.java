@@ -38,14 +38,7 @@ public class MIDLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitType_decl_pass(MIDLParser.Type_decl_passContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitType_decl_(MIDLParser.Type_decl_Context ctx) { return visitChildren(ctx); }
+	@Override public T visitType_decl(MIDLParser.Type_declContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -73,7 +66,7 @@ public class MIDLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDeclarator_pass(MIDLParser.Declarator_passContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDeclarator(MIDLParser.DeclaratorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -157,28 +150,21 @@ public class MIDLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitType_spec_pass(MIDLParser.Type_spec_passContext ctx) { return visitChildren(ctx); }
+	@Override public T visitType_spec(MIDLParser.Type_specContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBase_type_spec_pass(MIDLParser.Base_type_spec_passContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBase_type_spec(MIDLParser.Base_type_specContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBase_type_spec_(MIDLParser.Base_type_spec_Context ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitInteger_type_pass(MIDLParser.Integer_type_passContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInteger_type(MIDLParser.Integer_typeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

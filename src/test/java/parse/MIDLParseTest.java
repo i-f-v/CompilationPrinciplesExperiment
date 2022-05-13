@@ -17,7 +17,7 @@ import java.io.*;
 
 public class MIDLParseTest {
 
-    public static final String HOME = "C:\\Users\\IFV\\Desktop\\programming projects\\Idea\\CompilationPrinciplesExperiment\\src\\test\\java\\cases\\";
+    public static final String HOME = "testcases\\";
 
     /**
      * 测试类
@@ -37,9 +37,10 @@ public class MIDLParseTest {
             ParseTree tree = parser.specification();
 
             ParseTreeWalker walker = new ParseTreeWalker();
-            walker.walk(new MIDLParserBaseListener(), tree);
+            walker.walk(new MIDLParserCSTListener(), tree);
 
-            System.out.println(tree.toStringTree(parser));
+            //自带的Lisp标准访问树
+//            System.out.println(tree.toStringTree(parser));
         } catch (IOException e) {
             System.out.println("Invalid file.");
         }

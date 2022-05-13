@@ -38,29 +38,15 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitModule(MIDLParser.ModuleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code type_decl_pass}
-	 * labeled alternative in {@link MIDLParser#type_decl}.
+	 * Enter a parse tree produced by {@link MIDLParser#type_decl}.
 	 * @param ctx the parse tree
 	 */
-	void enterType_decl_pass(MIDLParser.Type_decl_passContext ctx);
+	void enterType_decl(MIDLParser.Type_declContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code type_decl_pass}
-	 * labeled alternative in {@link MIDLParser#type_decl}.
+	 * Exit a parse tree produced by {@link MIDLParser#type_decl}.
 	 * @param ctx the parse tree
 	 */
-	void exitType_decl_pass(MIDLParser.Type_decl_passContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code type_decl_}
-	 * labeled alternative in {@link MIDLParser#type_decl}.
-	 * @param ctx the parse tree
-	 */
-	void enterType_decl_(MIDLParser.Type_decl_Context ctx);
-	/**
-	 * Exit a parse tree produced by the {@code type_decl_}
-	 * labeled alternative in {@link MIDLParser#type_decl}.
-	 * @param ctx the parse tree
-	 */
-	void exitType_decl_(MIDLParser.Type_decl_Context ctx);
+	void exitType_decl(MIDLParser.Type_declContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MIDLParser#struct_type}.
 	 * @param ctx the parse tree
@@ -92,17 +78,15 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitDeclarators(MIDLParser.DeclaratorsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code declarator_pass}
-	 * labeled alternative in {@link MIDLParser#declarator}.
+	 * Enter a parse tree produced by {@link MIDLParser#declarator}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclarator_pass(MIDLParser.Declarator_passContext ctx);
+	void enterDeclarator(MIDLParser.DeclaratorContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code declarator_pass}
-	 * labeled alternative in {@link MIDLParser#declarator}.
+	 * Exit a parse tree produced by {@link MIDLParser#declarator}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclarator_pass(MIDLParser.Declarator_passContext ctx);
+	void exitDeclarator(MIDLParser.DeclaratorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MIDLParser#array_declarator}.
 	 * @param ctx the parse tree
@@ -214,53 +198,35 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code type_spec_pass}
-	 * labeled alternative in {@link MIDLParser#type_spec}.
+	 * Enter a parse tree produced by {@link MIDLParser#type_spec}.
 	 * @param ctx the parse tree
 	 */
-	void enterType_spec_pass(MIDLParser.Type_spec_passContext ctx);
+	void enterType_spec(MIDLParser.Type_specContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code type_spec_pass}
-	 * labeled alternative in {@link MIDLParser#type_spec}.
+	 * Exit a parse tree produced by {@link MIDLParser#type_spec}.
 	 * @param ctx the parse tree
 	 */
-	void exitType_spec_pass(MIDLParser.Type_spec_passContext ctx);
+	void exitType_spec(MIDLParser.Type_specContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code base_type_spec_pass}
-	 * labeled alternative in {@link MIDLParser#base_type_spec}.
+	 * Enter a parse tree produced by {@link MIDLParser#base_type_spec}.
 	 * @param ctx the parse tree
 	 */
-	void enterBase_type_spec_pass(MIDLParser.Base_type_spec_passContext ctx);
+	void enterBase_type_spec(MIDLParser.Base_type_specContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code base_type_spec_pass}
-	 * labeled alternative in {@link MIDLParser#base_type_spec}.
+	 * Exit a parse tree produced by {@link MIDLParser#base_type_spec}.
 	 * @param ctx the parse tree
 	 */
-	void exitBase_type_spec_pass(MIDLParser.Base_type_spec_passContext ctx);
+	void exitBase_type_spec(MIDLParser.Base_type_specContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code base_type_spec_}
-	 * labeled alternative in {@link MIDLParser#base_type_spec}.
+	 * Enter a parse tree produced by {@link MIDLParser#integer_type}.
 	 * @param ctx the parse tree
 	 */
-	void enterBase_type_spec_(MIDLParser.Base_type_spec_Context ctx);
+	void enterInteger_type(MIDLParser.Integer_typeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code base_type_spec_}
-	 * labeled alternative in {@link MIDLParser#base_type_spec}.
+	 * Exit a parse tree produced by {@link MIDLParser#integer_type}.
 	 * @param ctx the parse tree
 	 */
-	void exitBase_type_spec_(MIDLParser.Base_type_spec_Context ctx);
-	/**
-	 * Enter a parse tree produced by the {@code integer_type_pass}
-	 * labeled alternative in {@link MIDLParser#integer_type}.
-	 * @param ctx the parse tree
-	 */
-	void enterInteger_type_pass(MIDLParser.Integer_type_passContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code integer_type_pass}
-	 * labeled alternative in {@link MIDLParser#integer_type}.
-	 * @param ctx the parse tree
-	 */
-	void exitInteger_type_pass(MIDLParser.Integer_type_passContext ctx);
+	void exitInteger_type(MIDLParser.Integer_typeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MIDLParser#unsigned_int}.
 	 * @param ctx the parse tree

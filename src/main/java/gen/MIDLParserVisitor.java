@@ -29,19 +29,11 @@ public interface MIDLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitModule(MIDLParser.ModuleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code type_decl_pass}
-	 * labeled alternative in {@link MIDLParser#type_decl}.
+	 * Visit a parse tree produced by {@link MIDLParser#type_decl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType_decl_pass(MIDLParser.Type_decl_passContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code type_decl_}
-	 * labeled alternative in {@link MIDLParser#type_decl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitType_decl_(MIDLParser.Type_decl_Context ctx);
+	T visitType_decl(MIDLParser.Type_declContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MIDLParser#struct_type}.
 	 * @param ctx the parse tree
@@ -61,12 +53,11 @@ public interface MIDLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclarators(MIDLParser.DeclaratorsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code declarator_pass}
-	 * labeled alternative in {@link MIDLParser#declarator}.
+	 * Visit a parse tree produced by {@link MIDLParser#declarator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDeclarator_pass(MIDLParser.Declarator_passContext ctx);
+	T visitDeclarator(MIDLParser.DeclaratorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MIDLParser#array_declarator}.
 	 * @param ctx the parse tree
@@ -134,33 +125,23 @@ public interface MIDLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code type_spec_pass}
-	 * labeled alternative in {@link MIDLParser#type_spec}.
+	 * Visit a parse tree produced by {@link MIDLParser#type_spec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType_spec_pass(MIDLParser.Type_spec_passContext ctx);
+	T visitType_spec(MIDLParser.Type_specContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code base_type_spec_pass}
-	 * labeled alternative in {@link MIDLParser#base_type_spec}.
+	 * Visit a parse tree produced by {@link MIDLParser#base_type_spec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBase_type_spec_pass(MIDLParser.Base_type_spec_passContext ctx);
+	T visitBase_type_spec(MIDLParser.Base_type_specContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code base_type_spec_}
-	 * labeled alternative in {@link MIDLParser#base_type_spec}.
+	 * Visit a parse tree produced by {@link MIDLParser#integer_type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBase_type_spec_(MIDLParser.Base_type_spec_Context ctx);
-	/**
-	 * Visit a parse tree produced by the {@code integer_type_pass}
-	 * labeled alternative in {@link MIDLParser#integer_type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInteger_type_pass(MIDLParser.Integer_type_passContext ctx);
+	T visitInteger_type(MIDLParser.Integer_typeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MIDLParser#unsigned_int}.
 	 * @param ctx the parse tree

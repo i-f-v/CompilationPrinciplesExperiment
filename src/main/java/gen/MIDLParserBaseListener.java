@@ -52,25 +52,13 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType_decl_pass(MIDLParser.Type_decl_passContext ctx) { }
+	@Override public void enterType_decl(MIDLParser.Type_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType_decl_pass(MIDLParser.Type_decl_passContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterType_decl_(MIDLParser.Type_decl_Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitType_decl_(MIDLParser.Type_decl_Context ctx) { }
+	@Override public void exitType_decl(MIDLParser.Type_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -112,13 +100,13 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarator_pass(MIDLParser.Declarator_passContext ctx) { }
+	@Override public void enterDeclarator(MIDLParser.DeclaratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarator_pass(MIDLParser.Declarator_passContext ctx) { }
+	@Override public void exitDeclarator(MIDLParser.DeclaratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -256,49 +244,37 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType_spec_pass(MIDLParser.Type_spec_passContext ctx) { }
+	@Override public void enterType_spec(MIDLParser.Type_specContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType_spec_pass(MIDLParser.Type_spec_passContext ctx) { }
+	@Override public void exitType_spec(MIDLParser.Type_specContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBase_type_spec_pass(MIDLParser.Base_type_spec_passContext ctx) { }
+	@Override public void enterBase_type_spec(MIDLParser.Base_type_specContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBase_type_spec_pass(MIDLParser.Base_type_spec_passContext ctx) { }
+	@Override public void exitBase_type_spec(MIDLParser.Base_type_specContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBase_type_spec_(MIDLParser.Base_type_spec_Context ctx) { }
+	@Override public void enterInteger_type(MIDLParser.Integer_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBase_type_spec_(MIDLParser.Base_type_spec_Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInteger_type_pass(MIDLParser.Integer_type_passContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInteger_type_pass(MIDLParser.Integer_type_passContext ctx) { }
+	@Override public void exitInteger_type(MIDLParser.Integer_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

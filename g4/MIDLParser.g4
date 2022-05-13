@@ -13,8 +13,8 @@ definition
 module: K_MODULE ID LEFT_BRACE definition+ RIGHT_BRACE;
 
 type_decl
-    : struct_type   # type_decl_pass
-    | (K_STRUCT ID) # type_decl_
+    : struct_type
+    | (K_STRUCT ID)
     ;
 //Ç¶Ì×ÓÅ»¯
 struct_type: K_STRUCT ID LEFT_BRACE member_list RIGHT_BRACE;
@@ -24,25 +24,43 @@ member_list: (type_spec declarators SEMI_COLON)*;
 declarators: declarator (COMMAS declarator)*;
 
 declarator
-    : simple_declarator # declarator_pass
-    | array_declarator  # declarator_pass
+    : simple_declarator
+    | array_declarator
     ;
 
 array_declarator: ID LEFT_SQUARE_BRACKET or_expr RIGHT_SQUARE_BRACKET (EQUAL exp_list)?;
 
-or_expr: xor_expr (OR xor_expr)*;
+or_expr
+    : xor_expr (OR xor_expr)?
+    | or_expr (OR xor_expr)
+    ;
 
-xor_expr: and_expr (POWER and_expr)*;
+xor_expr
+    : and_expr (POWER and_expr)?
+    | xor_expr (POWER and_expr)
+    ;
 
-and_expr: shift_expr (AMP shift_expr)*;
+and_expr
+    : shift_expr (AMP shift_expr)?
+    | and_expr (AMP shift_expr)
+    ;
 
-shift_expr: add_expr ((GT2 | LT2) add_expr)*;
+shift_expr
+    : add_expr ((GT2 | LT2) add_expr)?
+    | shift_expr ((GT2 | LT2) add_expr)
+    ;
 
-add_expr: multi_expr ((PLUS | MINUS) multi_expr)*;
+add_expr
+    : multi_expr ((PLUS | MINUS) multi_expr)?
+    | add_expr ((PLUS | MINUS) multi_expr)
+    ;
 
-multi_expr: unary_expr ((STAR | SLASH | PERCENT) unary_expr)*;
+multi_expr
+    : unary_expr ((STAR | SLASH | PERCENT) unary_expr)?
+    | multi_expr (STAR | SLASH | PERCENT) unary_expr
+    ;
 
-unary_expr: (MINUS | PLUS | WAVE)? literal;
+unary_expr: op = (MINUS | PLUS | WAVE)? literal;
 
 literal
     : INTEGER
@@ -57,22 +75,22 @@ exp_list: LEFT_SQUARE_BRACKET or_expr (COMMAS or_expr)* RIGHT_SQUARE_BRACKET;
 simple_declarator: ID (EQUAL or_expr)?;
 
 type_spec
-    : scoped_name       # type_spec_pass
-    | base_type_spec    # type_spec_pass
-    | struct_type       # type_spec_pass
+    : scoped_name
+    | base_type_spec
+    | struct_type
     ;
 
 base_type_spec
-    : float_pt_type # base_type_spec_pass
-    | integer_type  # base_type_spec_pass
-    | K_CHAR        # base_type_spec_
-    | K_STRING      # base_type_spec_
-    | K_BOOLEAN     # base_type_spec_
+    : float_pt_type
+    | integer_type
+    | K_CHAR
+    | K_STRING
+    | K_BOOLEAN
     ;
 
 integer_type
-    : signed_int    # integer_type_pass
-    | unsigned_int  # integer_type_pass
+    : signed_int
+    | unsigned_int
     ;
 
 unsigned_int
