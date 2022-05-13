@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="parse.MIDLParseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-12T18:05:28" hostname="DESKTOP-42K18HA" time="0.077">
-  <properties/>
-  <testcase name="Test" classname="parse.MIDLParseTest" time="0.077"/>
-  <system-out><![CDATA[(specification (definition (module module test1 { (definition (type_decl struct test2) ;) }) ;))
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

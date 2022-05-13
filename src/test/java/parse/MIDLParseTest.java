@@ -17,13 +17,15 @@ import java.io.*;
 
 public class MIDLParseTest {
 
+    public static final String HOME = "C:\\Users\\IFV\\Desktop\\programming projects\\Idea\\CompilationPrinciplesExperiment\\src\\test\\java\\cases\\";
+
     /**
      * ≤‚ ‘¿‡
      */
     @Test
     public void Test() throws IOException {
 
-        String testFileName = "C:\\Users\\IFV\\Desktop\\programming projects\\Idea\\CompilationPrinciplesExperiment\\src\\test\\java\\cases\\test_grammar.txt";
+        String testFileName = HOME + "1.txt";
         File file = new File(testFileName);
         try {
             MIDLLexer lexer =
