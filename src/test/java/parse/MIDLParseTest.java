@@ -5,6 +5,7 @@ package parse;
 import gen.MIDLLexer;
 import gen.MIDLParser;
 import gen.MIDLParserBaseListener;
+import gen.MIDLParserBaseVisitor;
 import listener.MIDLParserCSTListener;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -36,11 +37,8 @@ public class MIDLParseTest {
 
             ParseTree tree = parser.specification();
 
-            ParseTreeWalker walker = new ParseTreeWalker();
-            walker.walk(new MIDLParserCSTListener(), tree);
 
-            //自带的Lisp标准访问树
-//            System.out.println(tree.toStringTree(parser));
+
         } catch (IOException e) {
             System.out.println("Invalid file.");
         }

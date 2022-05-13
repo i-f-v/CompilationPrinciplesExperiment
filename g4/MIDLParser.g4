@@ -16,7 +16,7 @@ type_decl
     : struct_type
     | (K_STRUCT ID)
     ;
-//Ç¶Ì×ÓÅ»¯
+
 struct_type: K_STRUCT ID LEFT_BRACE member_list RIGHT_BRACE;
 
 member_list: (type_spec declarators SEMI_COLON)*;
@@ -112,7 +112,6 @@ float_pt_type
     | K_DOUBLE
     | (K_LONG K_DOUBLE)
     ;
-
 
 scoped_name: (COLON_2)? ID ((COLON_2) ID)* ;
 

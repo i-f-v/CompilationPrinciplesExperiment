@@ -9,5 +9,6 @@ module  it {
         int i;
         long long  lli = 1 + 2 * 3;
         char chars[5] = ['a','b','c','d','e'];
+        int re = 0+1+2+3+4+5+6+7+8+9;
     };
 };
