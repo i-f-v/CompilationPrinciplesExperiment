@@ -70,34 +70,37 @@ AMP : '&';
 OR : '|';
 WAVE : '~';
 POWER : '^';
-COLON : ':';
 COLON_2 : ':' ':';
+COLON : ':';
 
 //转义符号
 fragment SINGLE_QUOTE : '\'';
 fragment BACK_SLASH : '\\';
 fragment DOUBLE_QUOTE : '"';
 
+//忽略空格、换行、制表位。
 FORMATER: [ \t\n\r]+ -> skip;
 
 
 //标识符
-LETTER
+fragment DIGIT : '0'..'9';
+fragment LETTER
     : 'A'..'Z'
-    | 'a'..'z' ;
-DIGIT : '0'..'9';
-UNDERLINE : '_';
-INTEGER_TYPE_SUFFIX : L;
+    | 'a'..'z'
+    ;
+fragment UNDERLINE : '_';
+fragment INTEGER_TYPE_SUFFIX : L;
+fragment EXPONENT : E ('+' | '-') (DIGIT)+;
+fragment FLOAT_TYPE_SUFFIX : F | D;
+fragment ESCAPE_SEQUENCE : BACK_SLASH ('b' | 't' | 'n' | 'f' | 'r' | DOUBLE_QUOTE | SINGLE_QUOTE | BACK_SLASH);
 INTEGER : ('0' | ('1'..'9' DIGIT*)) INTEGER_TYPE_SUFFIX?;
-EXPONENT : E ('+' | '-') (DIGIT)+;
-FLOAT_TYPE_SUFFIX : F | D;
-FLOATING_PT
-    : DIGIT+ '.' DIGIT* EXPONENT? FLOAT_TYPE_SUFFIX?
-    | '.' DIGIT+ EXPONENT? FLOAT_TYPE_SUFFIX?
-    | DIGIT+ EXPONENT FLOAT_TYPE_SUFFIX?
-    | DIGIT+ EXPONENT? FLOAT_TYPE_SUFFIX;
-ESCAPE_SEQUENCE : BACK_SLASH ('b' | 't' | 'n' | 'f' | 'r' | DOUBLE_QUOTE | SINGLE_QUOTE | BACK_SLASH);
 CHAR : SINGLE_QUOTE (ESCAPE_SEQUENCE | (~'\\' | ~'\'')) SINGLE_QUOTE;
 STRING : DOUBLE_QUOTE (ESCAPE_SEQUENCE | (~'\\' | ~'\''))* DOUBLE_QUOTE;
 BOOLEAN : (T R U E) | (F A L S E);
 ID : LETTER (UNDERLINE? (LETTER | DIGIT))*;
+FLOATING_PT
+    : DIGIT+ '.' DIGIT* EXPONENT? FLOAT_TYPE_SUFFIX?
+    | '.' DIGIT+ EXPONENT? FLOAT_TYPE_SUFFIX?
+    | DIGIT+ EXPONENT FLOAT_TYPE_SUFFIX?
+    | DIGIT+ EXPONENT? FLOAT_TYPE_SUFFIX
+    ;

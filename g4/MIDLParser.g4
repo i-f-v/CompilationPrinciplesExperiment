@@ -13,10 +13,10 @@ definition
 module: K_MODULE ID LEFT_BRACE definition+ RIGHT_BRACE;
 
 type_decl
-    : struct_type
-    | K_STRUCT ID
+    : struct_type   # type_decl_pass
+    | (K_STRUCT ID) # type_decl_
     ;
-
+//Ç¶Ì×ÓÅ»¯
 struct_type: K_STRUCT ID LEFT_BRACE member_list RIGHT_BRACE;
 
 member_list: (type_spec declarators SEMI_COLON)*;
@@ -24,8 +24,8 @@ member_list: (type_spec declarators SEMI_COLON)*;
 declarators: declarator (COMMAS declarator)*;
 
 declarator
-    : simple_declarator 
-    | array_declarator
+    : simple_declarator # declarator_pass
+    | array_declarator  # declarator_pass
     ;
 
 array_declarator: ID LEFT_SQUARE_BRACKET or_expr RIGHT_SQUARE_BRACKET (EQUAL exp_list)?;
@@ -57,42 +57,42 @@ exp_list: LEFT_SQUARE_BRACKET or_expr (COMMAS or_expr)* RIGHT_SQUARE_BRACKET;
 simple_declarator: ID (EQUAL or_expr)?;
 
 type_spec
-    : scoped_name
-    | base_type_spec
-    | struct_type
+    : scoped_name       # type_spec_pass
+    | base_type_spec    # type_spec_pass
+    | struct_type       # type_spec_pass
     ;
 
 base_type_spec
-    : float_pt_type
-    | integer_type
-    | K_CHAR
-    | K_STRING
-    | K_BOOLEAN
+    : float_pt_type # base_type_spec_pass
+    | integer_type  # base_type_spec_pass
+    | K_CHAR        # base_type_spec_
+    | K_STRING      # base_type_spec_
+    | K_BOOLEAN     # base_type_spec_
     ;
 
 integer_type
-    : signed_int
-    | unsigned_int
+    : signed_int    # integer_type_pass
+    | unsigned_int  # integer_type_pass
     ;
 
 unsigned_int
-    : (K_UNSIGNED K_SHORT | K_UINT16)       # uint16
-    | (K_UNSIGNED K_LONG | K_UINT32)        # uint32
-    | (K_UNSIGNED K_LONG K_LONG | K_UINT64) # uint64
-    | K_UINT8                               # uint8
+    : (K_UNSIGNED K_SHORT | K_UINT16)
+    | (K_UNSIGNED K_LONG | K_UINT32)
+    | (K_UNSIGNED K_LONG K_LONG | K_UINT64)
+    | K_UINT8
     ;
 
 signed_int
-    : (K_SHORT | K_INT16)       # int16
-    | (K_LONG | K_INT32)        # int32
-    | (K_LONG K_LONG | K_INT64) # int64
-    | K_INT8                    # int8
+    : (K_SHORT | K_INT16)
+    | (K_LONG | K_INT32)
+    | (K_LONG K_LONG | K_INT64)
+    | K_INT8
     ;
     
 float_pt_type
-    : K_FLOAT           # float
-    | K_DOUBLE          # double
-    | K_LONG K_DOUBLE   # longDouble
+    : K_FLOAT
+    | K_DOUBLE
+    | (K_LONG K_DOUBLE)
     ;
 
 
