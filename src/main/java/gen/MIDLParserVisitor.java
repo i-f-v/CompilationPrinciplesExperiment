@@ -47,6 +47,12 @@ public interface MIDLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMember_list(MIDLParser.Member_listContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MIDLParser#member}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMember(MIDLParser.MemberContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MIDLParser#declarators}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

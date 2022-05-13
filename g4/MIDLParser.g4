@@ -19,7 +19,9 @@ type_decl
 
 struct_type: K_STRUCT ID LEFT_BRACE member_list RIGHT_BRACE;
 
-member_list: (type_spec declarators SEMI_COLON)*;
+member_list: member*;
+
+member: type_spec declarators SEMI_COLON;
 
 declarators: declarator (COMMAS declarator)*;
 

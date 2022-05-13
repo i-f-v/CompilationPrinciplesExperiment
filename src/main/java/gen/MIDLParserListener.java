@@ -68,6 +68,16 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitMember_list(MIDLParser.Member_listContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MIDLParser#member}.
+	 * @param ctx the parse tree
+	 */
+	void enterMember(MIDLParser.MemberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MIDLParser#member}.
+	 * @param ctx the parse tree
+	 */
+	void exitMember(MIDLParser.MemberContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MIDLParser#declarators}.
 	 * @param ctx the parse tree
 	 */
