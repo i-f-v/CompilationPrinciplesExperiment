@@ -1,10 +1,11 @@
 
 package listener;
 
-import astnodes.ASTNode;
+import astnode.ASTNode;
 import gen.MIDLParser;
 import gen.MIDLParserBaseListener;
 import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.util.List;
 import java.util.Stack;
 
@@ -387,5 +388,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         super.exitScoped_name(ctx);
     }
 
-
+    /**
+     * 返回解析生成树的根节点
+     *
+     * @return 生成树的根节点
+     */
+    public ASTNode getRoot() {
+        return root;
+    }
 }

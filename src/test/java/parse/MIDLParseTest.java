@@ -2,6 +2,7 @@
 package parse;
 
 
+import astnode.ASTNode;
 import gen.MIDLLexer;
 import gen.MIDLParser;
 import gen.MIDLParserBaseListener;
@@ -11,6 +12,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;
@@ -26,7 +28,7 @@ public class MIDLParseTest {
     @Test
     public void Test() throws IOException {
 
-        String testFileName = HOME + "1.txt";
+        String testFileName = HOME + "test_grammar.txt";
         File file = new File(testFileName);
         try {
             MIDLLexer lexer =
@@ -36,9 +38,17 @@ public class MIDLParseTest {
             MIDLParser parser = new MIDLParser(new CommonTokenStream(lexer));
 
             ParseTree tree = parser.specification();
+            ParseTreeWalker walker = new ParseTreeWalker();
 
+            MIDLParserCSTListener listener = new MIDLParserCSTListener();
+            walker.walk(listener, tree);
 
+            //todo ·µ»ØµÄoutputTreeÎª¿Õ
+            ASTNode outputTree = listener.getRoot();
 
+            String out = outputTree.traverse(outputTree, 0);
+
+            System.out.println(out);
         } catch (IOException e) {
             System.out.println("Invalid file.");
         }
