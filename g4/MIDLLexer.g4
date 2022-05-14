@@ -47,8 +47,6 @@ K_CHAR    : C H A R;
 K_STRING  : S T R I N G;
 K_FLOAT   : F L O A T;
 K_DOUBLE  : D O U B L E;
-K_TRUE    : T R U E;
-K_FALSE   : F A L S E;
 
 
 //专用符号
