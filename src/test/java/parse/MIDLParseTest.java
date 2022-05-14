@@ -24,7 +24,13 @@ import java.util.Locale;
  */
 public class MIDLParseTest {
 
+    /**
+     * 测试用例的存储路径
+     */
     public static final String TEST_CASE_HOME = "test\\cases\\";
+    /**
+     * 输出结果的存储路径
+     */
     public static final String TEST_OUTPUT_HOME = "test\\out\\";
 
     /**
@@ -33,6 +39,7 @@ public class MIDLParseTest {
      * 并将所有用例的生成文件命名为"xxx_out.txt"，保存在目录 test/out/下。
      */
     @Test
+    @SuppressWarnings("deprecation")
     public void Test() throws IOException {
 
         FileWriter writer = null;
@@ -44,7 +51,7 @@ public class MIDLParseTest {
                         files) {
                     if (file.isFile()
                             && file.getName().
-                            toLowerCase(Locale.ROOT).endsWith(".txt")) {// txt 文件
+                            toLowerCase(Locale.ROOT).endsWith(".txt")) {// 对所有 .txt 文件进行遍历
 
                         String name = file.getName();
                         try {

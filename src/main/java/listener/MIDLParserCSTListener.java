@@ -1,4 +1,3 @@
-
 package listener;
 
 import astnode.ASTNode;
@@ -14,11 +13,9 @@ import java.util.Stack;
  */
 public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
-    Stack<ASTNode> stack;
-
     //用于保存最终遍历结果的树
     static ASTNode root;
-
+    Stack<ASTNode> stack;
     ASTNode currentNode;
 
     public MIDLParserCSTListener() {
