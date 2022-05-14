@@ -20,7 +20,8 @@ import java.io.*;
 
 public class MIDLParseTest {
 
-    public static final String HOME = "testcases\\";
+    public static final String TEST_CASE_HOME = "test\\cases\\";
+    public static final String TEST_OUTPUT_HOME = "test\\out\\";
 
     /**
      * 测试类
@@ -28,29 +29,48 @@ public class MIDLParseTest {
     @Test
     public void Test() throws IOException {
 
-        String testFileName = HOME + "test_grammar.txt";
-        File file = new File(testFileName);
-        try {
-            MIDLLexer lexer =
-                    new MIDLLexer(
-                            new ANTLRInputStream(
-                                    new FileInputStream(file)));
-            MIDLParser parser = new MIDLParser(new CommonTokenStream(lexer));
+        FileWriter writer = null;
+        File testCatalog = new File(TEST_CASE_HOME);
+        if (testCatalog.isDirectory()) {
+            File[] files = testCatalog.listFiles();
+            if (files != null && files.length > 0)
+                for (File file :
+                        files) {
+                    if (file.isFile()) {
 
-            ParseTree tree = parser.specification();
-            ParseTreeWalker walker = new ParseTreeWalker();
+                        String name = file.getName();
+                        try {
+                            MIDLLexer lexer =
+                                    new MIDLLexer(
+                                            new ANTLRInputStream(
+                                                    new FileInputStream(file)));
+                            MIDLParser parser = new MIDLParser(new CommonTokenStream(lexer));
 
-            MIDLParserCSTListener listener = new MIDLParserCSTListener();
-            walker.walk(listener, tree);//todo 返回的outputTree为空
+                            ParseTree tree = parser.specification();
+                            ParseTreeWalker walker = new ParseTreeWalker();
+
+                            MIDLParserCSTListener listener = new MIDLParserCSTListener();
+                            walker.walk(listener, tree);
 
 
-            ASTNode outputTree = listener.getRoot();
+                            ASTNode outputTree = listener.getRoot();
 
-            String out = outputTree.traverse(outputTree, 0);
+                            String out = outputTree.traverse(outputTree, 0);
 
-            System.out.println(out);
-        } catch (IOException e) {
-            System.out.println("Invalid file.");
+                            writer = new FileWriter(TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
+                                    + "_out" + ".txt");
+
+                            writer.write(out);
+                        } catch (IOException e) {
+                            System.out.println("Invalid file.");
+                        } finally {
+                            if (writer != null) {
+                                writer.close();
+                            }
+                        }
+                    }
+                }
         }
+
     }
 }

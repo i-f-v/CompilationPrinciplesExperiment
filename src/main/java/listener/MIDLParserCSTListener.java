@@ -11,9 +11,9 @@ import java.util.Stack;
 
 public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
-    Stack<ASTNode> stack ;
+    Stack<ASTNode> stack;
 
-     static ASTNode root;
+    static ASTNode root;
 
     ASTNode currentNode;
 
@@ -74,8 +74,10 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void exitType_decl(MIDLParser.Type_declContext ctx) {
-        currentNode = stack.pop();
-        stack.peek().addChild(currentNode);
+        if (ctx.getChildCount() == 2) {
+            currentNode = stack.pop();
+            stack.peek().addChild(currentNode);
+        }
     }
 
     @Override
@@ -136,13 +138,26 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) {
-        super.enterArray_declarator(ctx);//todo
+        ASTNode arrayDeclaratorNode = new ASTNode();
+        arrayDeclaratorNode.addChild(
+                new ASTNode(ctx.ID().getText()));
+        if (ctx.getChildCount() == 4) {//没有EQUAL exp_list
+            arrayDeclaratorNode.addChild(
+                    new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
+        }
+        stack.push(arrayDeclaratorNode);
+
     }
 
     @Override
     public void exitArray_declarator(MIDLParser.Array_declaratorContext ctx) {
+
         currentNode = stack.pop();
-        stack.peek().addChild(currentNode);//todo
+        if (ctx.getChildCount() == 4) {
+            currentNode.addChild(
+                    new ASTNode(ctx.RIGHT_SQUARE_BRACKET().getText()));
+        }
+        stack.peek().addChild(currentNode);
     }
 
     @Override
@@ -299,6 +314,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         } else {
             simpleDeclarator.addChild(
                     new ASTNode(ctx.EQUAL().getText()));
+            stack.push(simpleDeclarator);
         }
     }
 
@@ -320,7 +336,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterBase_type_spec(MIDLParser.Base_type_specContext ctx) {
-        if (ctx.getChild(1).getChildCount() != 0) {//子节点为终结符
+        if (ctx.getChild(0).getChildCount() == 0) {//子节点为终结符
             stack.push(new ASTNode(ctx.children.toString()));
         }
         //else super.enterBase_type_spec(ctx);
@@ -328,8 +344,10 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void exitBase_type_spec(MIDLParser.Base_type_specContext ctx) {
-        currentNode = stack.pop();
-        stack.peek().addChild(currentNode);
+        if (ctx.getChild(0).getChildCount() == 0) {
+            currentNode = stack.pop();
+            stack.peek().addChild(currentNode);
+        }
     }
 
     @Override

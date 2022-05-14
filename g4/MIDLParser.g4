@@ -77,9 +77,9 @@ exp_list: LEFT_SQUARE_BRACKET or_expr (COMMAS or_expr)* RIGHT_SQUARE_BRACKET;
 simple_declarator: ID (EQUAL or_expr)?;
 
 type_spec
-    : scoped_name
+    : struct_type
     | base_type_spec
-    | struct_type
+    | scoped_name
     ;
 
 base_type_spec

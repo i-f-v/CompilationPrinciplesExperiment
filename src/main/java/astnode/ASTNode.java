@@ -58,15 +58,13 @@ public class ASTNode {
     }
 
     /**
-     * 生成一个由数量为 length 个"_"组成的字符串
+     * 生成一个由数量为 length * 2 个空格组成的字符串
      *
      * @param length 字符串长度
      * @return 生成的字符串
      */
     private String lineBuilder(int length) {
 
-        StringBuilder out = new StringBuilder();
-        out.append("-".repeat(Math.max(0, length)));
-        return out.toString();
+        return "  ".repeat(Math.max(0, length));
     }
 }
