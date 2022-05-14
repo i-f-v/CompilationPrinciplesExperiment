@@ -1,21 +1,8 @@
-/**
- * Copyright (C), 2015-2022, XXX有限公司
- * FileName: NodeType
- * Author:   IFV
- * Date:     2022/5/13 19:40
- * Description:
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
+
 package astnode;
 
 /**
  * 节点类型枚举
- *
- * @author IFV
- * @create 2022/5/13
- * @since 1.0.0
  */
 public enum NodeType {
 
@@ -71,5 +58,5 @@ public enum NodeType {
     //literal
 
 
-    //TODO scoped_name 另外讨论
+    // scoped_name 另外讨论
 }

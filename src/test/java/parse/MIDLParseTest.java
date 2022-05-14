@@ -5,26 +5,32 @@ package parse;
 import astnode.ASTNode;
 import gen.MIDLLexer;
 import gen.MIDLParser;
-import gen.MIDLParserBaseListener;
-import gen.MIDLParserBaseVisitor;
 import listener.MIDLParserCSTListener;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Locale;
 
 
+/**
+ * 测试类。
+ */
 public class MIDLParseTest {
 
     public static final String TEST_CASE_HOME = "test\\cases\\";
     public static final String TEST_OUTPUT_HOME = "test\\out\\";
 
     /**
-     * 测试类
+     * 测试方法。<br>
+     * 将目录 test/cases/ 下所有的.txt文件执行{@link MIDLParserCSTListener}的遍历方法，<br>
+     * 并将所有用例的生成文件命名为"xxx_out.txt"，保存在目录 test/out/下。
      */
     @Test
     public void Test() throws IOException {
@@ -36,7 +42,9 @@ public class MIDLParseTest {
             if (files != null && files.length > 0)
                 for (File file :
                         files) {
-                    if (file.isFile()) {
+                    if (file.isFile()
+                            && file.getName().
+                            toLowerCase(Locale.ROOT).endsWith(".txt")) {// txt 文件
 
                         String name = file.getName();
                         try {
@@ -57,6 +65,7 @@ public class MIDLParseTest {
 
                             String out = outputTree.traverse(outputTree, 0);
 
+                            //写入文件
                             writer = new FileWriter(TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
                                     + "_out" + ".txt");
 

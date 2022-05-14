@@ -9,10 +9,14 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * 监听类，所有的遍历逻辑在每个exit和enter方法中完成。
+ */
 public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     Stack<ASTNode> stack;
 
+    //用于保存最终遍历结果的树
     static ASTNode root;
 
     ASTNode currentNode;
@@ -69,7 +73,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             structNode.addChild(new ASTNode(ctx.ID().getText()));
             stack.push(structNode);
         }
-        //else super.enterType_decl(ctx);
+//        else super.enterType_decl(ctx);
     }
 
     @Override
@@ -78,6 +82,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitType_decl(ctx);
     }
 
     @Override
@@ -165,7 +170,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         if (ctx.getChildCount() > 1) { // 子节点不止一个
             stack.push(new ASTNode(ctx.OR().toString()));
         }
-        //else super.enterOr_expr(ctx);
+//        else super.enterOr_expr(ctx);
     }
 
     @Override
@@ -174,6 +179,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitOr_expr(ctx);
     }
 
     @Override
@@ -181,7 +187,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         if (ctx.getChildCount() > 1) { // 子节点不止一个
             stack.push(new ASTNode(ctx.POWER().toString()));
         }
-        //else super.enterXor_expr(ctx);
+//        else super.enterXor_expr(ctx);
 
     }
 
@@ -191,6 +197,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitXor_expr(ctx);
     }
 
     @Override
@@ -198,7 +205,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         if (ctx.getChildCount() > 1) { // 子节点不止一个
             stack.push(new ASTNode(ctx.AMP().toString()));
         }
-        //else super.enterAnd_expr(ctx);
+//        else super.enterAnd_expr(ctx);
     }
 
     @Override
@@ -207,6 +214,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitAnd_expr(ctx);
     }
 
     @Override
@@ -215,7 +223,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             stack.push(new ASTNode(ctx.getChild(1).toString()));
             // 1 为'<<'或'>>'的下标
         }
-        //else super.enterShift_expr(ctx);
+//        else super.enterShift_expr(ctx);
     }
 
     @Override
@@ -224,6 +232,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitShift_expr(ctx);
     }
 
     @Override
@@ -232,7 +241,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             stack.push(new ASTNode(ctx.getChild(1).toString()));
             // 1 为'+'或'-'的下标
         }
-        //else super.enterAdd_expr(ctx);
+//        else super.enterAdd_expr(ctx);
     }
 
     @Override
@@ -241,6 +250,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitAdd_expr(ctx);
     }
 
     @Override
@@ -249,7 +259,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             stack.push(new ASTNode(ctx.getChild(1).toString()));
             // 1 为'*'或'/'的下标
         }
-        //else super.enterMulti_expr(ctx);
+//        else super.enterMulti_expr(ctx);
     }
 
     @Override
@@ -258,6 +268,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitMulti_expr(ctx);
     }
 
     @Override
@@ -266,7 +277,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             stack.push(new ASTNode(ctx.getChild(0).toString()));
             // 0 为'-'或'+'或'~'的下标
         }
-        //else super.enterShift_expr(ctx);
+//        else super.enterUnary_expr(ctx);
     }
 
     @Override
@@ -275,6 +286,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitUnary_expr(ctx);
     }
 
     @Override
@@ -339,7 +351,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         if (ctx.getChild(0).getChildCount() == 0) {//子节点为终结符
             stack.push(new ASTNode(ctx.children.toString()));
         }
-        //else super.enterBase_type_spec(ctx);
+//        else super.enterBase_type_spec(ctx);
     }
 
     @Override
@@ -348,6 +360,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
             currentNode = stack.pop();
             stack.peek().addChild(currentNode);
         }
+//        else super.exitBase_type_spec(ctx);
     }
 
     @Override

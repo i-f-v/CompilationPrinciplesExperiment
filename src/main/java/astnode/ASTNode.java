@@ -1,24 +1,10 @@
-/**
- * Copyright (C), 2015-2022, XXX有限公司
- * FileName: ASTNode
- * Author:   IFV
- * Date:     2022/5/13 19:03
- * Description:
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
+
 package astnode;
 
 import java.util.ArrayList;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈〉
- *
- * @author IFV
- * @create 2022/5/13
- * @since 1.0.0
+ * 自定义的树形节点类
  */
 public class ASTNode {
 
@@ -38,10 +24,18 @@ public class ASTNode {
         }
     }
 
+    /**
+     * 遍历{@link ASTNode}下的所有子节点。
+     *
+     * @param root 当前遍历的根节点。
+     * @param depth 当前根节点的深度。<br>
+     *              如果节点的{@link ASTNode#value} 属性为{@code null}，则深度于其父节点相同。
+     * @return 遍历最终得到的用于展示当前根节点下子节点的字符串
+     */
     public String traverse(ASTNode root, int depth) {
         StringBuilder builder = new StringBuilder();
         if (root != null) {
-            if (root.value != null && !root.value.isEmpty()) {
+            if (root.value != null && !root.value.isEmpty()) {//value属性不为空
                 builder.append(lineBuilder(depth)).append(root.value).append("\n");
                 for (ASTNode node :
                         root.children) {
@@ -49,7 +43,7 @@ public class ASTNode {
                 }
             } else {
                 for (ASTNode node :
-                        root.children) {
+                        root.children) {//value属性为空
                     builder.append(traverse(node, depth));
                 }
             }
