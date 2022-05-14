@@ -41,9 +41,9 @@ public class MIDLParseTest {
             ParseTreeWalker walker = new ParseTreeWalker();
 
             MIDLParserCSTListener listener = new MIDLParserCSTListener();
-            walker.walk(listener, tree);
+            walker.walk(listener, tree);//todo 返回的outputTree为空
 
-            //todo 返回的outputTree为空
+
             ASTNode outputTree = listener.getRoot();
 
             String out = outputTree.traverse(outputTree, 0);

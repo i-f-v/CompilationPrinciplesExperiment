@@ -33,7 +33,7 @@ public class ASTNode {
     }
 
     public void addChild(ASTNode child) {
-        if (child.children != null && !child.children.isEmpty()) {
+        if (child.children != null) {
             children.add(child);
         }
     }

@@ -11,16 +11,19 @@ import java.util.Stack;
 
 public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
-    Stack<ASTNode> stack = new Stack<>();
+    Stack<ASTNode> stack ;
 
-    ASTNode root;
+     static ASTNode root;
 
     ASTNode currentNode;
+
+    public MIDLParserCSTListener() {
+        stack = new Stack<>();
+    }
 
     @Override
     public void enterSpecification(MIDLParser.SpecificationContext ctx) {
         //顶端节点，无参构造，只压栈
-        //TODO 在遍历输出时，无参构造的节点value为null，这种情况下不输出，且树的深度不变
         root = new ASTNode();
         stack.push(root);
     }
