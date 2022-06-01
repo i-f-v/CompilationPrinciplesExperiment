@@ -79,6 +79,8 @@ public class MIDLParseTest {
                             writer.write(out);
                         } catch (IOException e) {
                             System.out.println("Invalid file.");
+                        } catch (NullPointerException e) {
+                            System.err.println("文件" + " " + name + " " + "出现词法或语法错误");
                         } finally {
                             if (writer != null) {
                                 writer.close();
