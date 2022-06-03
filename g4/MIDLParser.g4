@@ -115,5 +115,5 @@ float_pt_type
     | (K_LONG K_DOUBLE)
     ;
 
-scoped_name: (COLON_2) ID ((COLON_2) ID)* ;
+scoped_name: (COLON_2)? ID ((COLON_2) ID)* ;
 
