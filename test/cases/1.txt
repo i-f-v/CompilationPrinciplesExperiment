@@ -18,3 +18,7 @@ module  it {
         :: w_w :: a scName ;
     };
 };
+
+module t2 {
+    struct a;
+};

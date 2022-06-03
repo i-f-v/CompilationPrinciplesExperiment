@@ -95,3 +95,9 @@ module
     scName
     }
   }
+module
+  t2
+  {
+  struct
+    a
+  }
