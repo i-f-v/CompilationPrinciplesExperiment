@@ -5,7 +5,6 @@ import gen.MIDLParser;
 import gen.MIDLParserBaseListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -316,7 +315,9 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) {
-        ASTNode simpleDeclarator = new ASTNode(ctx.ID().getText());
+        ASTNode simpleDeclarator = new ASTNode();
+        simpleDeclarator.addChild(
+                new ASTNode(ctx.ID().getText()));
         if (ctx.getChildCount() == 1) {
             //子节点只包含ID
             stack.push(simpleDeclarator);
@@ -406,12 +407,15 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterScoped_name(MIDLParser.Scoped_nameContext ctx) {
         //将每一个终结符挂载到当前栈顶
-        List<ParseTree> scopeNameList = ctx.children;
+        StringBuilder scope = new StringBuilder();
         for (ParseTree child :
-                scopeNameList) {
-            currentNode = new ASTNode(child.toString());
-            stack.peek().addChild(currentNode);
+                ctx.children) {
+
+            scope.append(child.toString());
         }
+        currentNode = new ASTNode(scope.toString());
+        stack.peek().addChild(currentNode);
+
     }
 
     @Override
