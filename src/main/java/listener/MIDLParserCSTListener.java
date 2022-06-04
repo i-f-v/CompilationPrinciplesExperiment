@@ -24,7 +24,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterSpecification(MIDLParser.SpecificationContext ctx) {
-        //顶端节点，无参构造，只压栈
+        //顶端节点
         root = new ASTNode("SPEC");
         stack.push(root);
     }
@@ -400,7 +400,9 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         scope.append("[[");
         for (ParseTree child :
                 ctx.children) {
-
+            if (scope.toString().endsWith("[") && child.toString().equals("::")) {
+                continue;
+            }
             scope.append(child.toString());
         }
         scope.append("]]");
