@@ -15,23 +15,24 @@
       b
       {
       [string]
-        s
-          =
-          "a"
+      s
+        =
+        "a"
       [int8]
-        i
-        j
+      i
+      j
       [long, long]
-        lli
-          =
-          +
-            1
-            *
-              2
-              3
+      lli
+        =
+        +
+          1
+          *
+            2
+            3
       [char]
-        chars
+      chars
         5
+        expList
           [
           'a'
           'b'
@@ -39,19 +40,16 @@
           'd'
           'e'
           ]
-        c1
-        [
+      c1
         3
-        ]
-        c2
+      c2
       [double]
-        f
-        [
+      f
         22
-        ]
       [int8]
-        re
-          =
+      re
+        =
+        +
           +
             +
               +
@@ -59,49 +57,50 @@
                   +
                     +
                       +
-                        +
-                          -
-                            0
-                            1
-                          2
-                        3
-                      4
-                    5
-                  6
-                7
-              8
-            9
-      [float]
-        ff
-          =
-          -
-            0.1
-      [unsigned, short]
-        u
-      [boolean]
-        shift
-          =
-          <<
-            1
-            1
-      [uint8]
-        uu
-          =
-          |
-            4
-            ^
-              &
-                5
+                        -
+                          0
+                          1
+                        2
+                      3
+                    4
+                  5
                 6
               7
-      ::w_w::a
-        scName
+            8
+          9
+      [float]
+      ff
+        =
+        -
+          0.1
+      [unsigned, short]
+      u
+      [boolean]
+      shift
+        =
+        <<
+          1
+          1
+      [uint8]
+      uu
+        =
+        |
+          4
+          ^
+            &
+              5
+              6
+            7
+      [[::w_w::a]]
+      scName
       [int8]
-        k
-          =
-          +
-            1
-            1
+      k
+        =
+        +
+          1
+          1
+      [[b]]
+      b
       }
     }
   module
