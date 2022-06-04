@@ -316,20 +316,23 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) {
         ASTNode simpleDeclarator = new ASTNode();
-        simpleDeclarator.addChild(
-                new ASTNode(ctx.ID().getText()));
+        ASTNode child = new ASTNode(ctx.ID().getText());
         if (ctx.getChildCount() == 1) {
-            //子节点只包含ID
             stack.push(simpleDeclarator);
+            stack.push(child);
         } else {
-            simpleDeclarator.addChild(
-                    new ASTNode(ctx.EQUAL().getText()));
             stack.push(simpleDeclarator);
+            child.addChild(new ASTNode(ctx.EQUAL().getText()));
+            stack.push(child);
         }
+
+
     }
 
     @Override
     public void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
         currentNode = stack.pop();
         stack.peek().addChild(currentNode);
     }
