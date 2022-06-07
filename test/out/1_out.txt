@@ -1,3 +1,4 @@
+SPEC
   module
     it
     {
@@ -29,8 +30,10 @@
             2
             3
       [char]
+      ARRAY
         chars
         5
+        EXP_LIST
           [
           'a'
           'b'
@@ -38,6 +41,7 @@
           'd'
           'e'
           ]
+      ARRAY
         c1
         [
         4
@@ -47,6 +51,7 @@
         'z'
       c3
       [double]
+      ARRAY
         f
         [
         22
@@ -96,10 +101,7 @@
               5
               6
             7
-      ::
-      w_w
-      ::
-      a
+      [[::w_w::a]]
       scName
       }
     }

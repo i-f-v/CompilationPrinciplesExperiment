@@ -5,7 +5,6 @@ import gen.MIDLParser;
 import gen.MIDLParserBaseListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -25,7 +24,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterSpecification(MIDLParser.SpecificationContext ctx) {
         //顶端节点，无参构造，只压栈
-        root = new ASTNode();
+        root = new ASTNode("SPEC");
         stack.push(root);
     }
 
@@ -140,7 +139,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) {
-        ASTNode arrayDeclaratorNode = new ASTNode();
+        ASTNode arrayDeclaratorNode = new ASTNode("ARRAY");
         arrayDeclaratorNode.addChild(
                 new ASTNode(ctx.ID().getText()));
         if (ctx.getChildCount() == 4) {//没有EQUAL exp_list
@@ -300,7 +299,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterExp_list(MIDLParser.Exp_listContext ctx) {
 
-        ASTNode expListNode = new ASTNode();
+        ASTNode expListNode = new ASTNode("EXP_LIST");
         expListNode.addChild(
                 new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
         stack.push(expListNode);
@@ -406,12 +405,18 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterScoped_name(MIDLParser.Scoped_nameContext ctx) {
         //将每一个终结符挂载到当前栈顶
-        List<ParseTree> scopeNameList = ctx.children;
+        StringBuilder val = new StringBuilder();
+        val.append("[[");
         for (ParseTree child :
-                scopeNameList) {
-            currentNode = new ASTNode(child.toString());
-            stack.peek().addChild(currentNode);
+                ctx.children) {
+            if (val.toString().equals("") && child.toString().equals("::")){
+                continue;
+            }
+            val.append(child.toString());
         }
+        val.append("]]");
+        stack.peek().addChild(new ASTNode(val.toString()));
+
     }
 
     @Override
