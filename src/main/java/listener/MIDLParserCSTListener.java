@@ -395,7 +395,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         val.append("[[");
         for (ParseTree child :
                 ctx.children) {
-            if (val.toString().equals("") && child.toString().equals("::")){
+            if (val.toString().equals("[[") && child.toString().equals("::")){
                 continue;
             }
             val.append(child.toString());
