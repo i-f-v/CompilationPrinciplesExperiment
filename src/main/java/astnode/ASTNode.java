@@ -61,7 +61,7 @@ public class ASTNode {
             } else {
                 for (ASTNode node :
                         root.children) {//value Ù–‘Œ™ø’
-                    builder.append(traverse(node, depth));
+                    builder.append(traverse(node, depth + 1));
                 }
             }
         }

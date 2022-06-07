@@ -1,6 +1,6 @@
-module
-  test1
-  {
-  struct
-    f
-  }
+  module
+    test1
+    {
+    struct
+      f
+    }

@@ -12,7 +12,6 @@ package semantics.exceptions;
  * @since 1.0.0
  */
 public class NamingConflictException extends Exception {
-
     public NamingConflictException() {
     }
 
