@@ -1,4 +1,3 @@
-SPEC
   module
     test1
     {

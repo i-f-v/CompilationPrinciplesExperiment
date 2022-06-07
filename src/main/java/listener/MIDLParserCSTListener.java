@@ -24,7 +24,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterSpecification(MIDLParser.SpecificationContext ctx) {
         //顶端节点，无参构造，只压栈
-        root = new ASTNode("SPEC");
+        root = new ASTNode();
         stack.push(root);
     }
 
@@ -139,13 +139,10 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) {
-        ASTNode arrayDeclaratorNode = new ASTNode("ARRAY");
-        arrayDeclaratorNode.addChild(
-                new ASTNode(ctx.ID().getText()));
-        if (ctx.getChildCount() == 4) {//没有EQUAL exp_list
-            arrayDeclaratorNode.addChild(
-                    new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
-        }
+
+        ASTNode arrayDeclaratorNode = new ASTNode(ctx.ID().getText());
+
+
         stack.push(arrayDeclaratorNode);
 
     }
@@ -154,10 +151,6 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     public void exitArray_declarator(MIDLParser.Array_declaratorContext ctx) {
 
         currentNode = stack.pop();
-        if (ctx.getChildCount() == 4) {
-            currentNode.addChild(
-                    new ASTNode(ctx.RIGHT_SQUARE_BRACKET().getText()));
-        }
         stack.peek().addChild(currentNode);
     }
 
@@ -298,19 +291,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterExp_list(MIDLParser.Exp_listContext ctx) {
-
-        ASTNode expListNode = new ASTNode("EXP_LIST");
-        expListNode.addChild(
-                new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
-        stack.push(expListNode);
+        super.enterExp_list(ctx);
     }
 
     @Override
     public void exitExp_list(MIDLParser.Exp_listContext ctx) {
-        currentNode = stack.pop();
-        currentNode.addChild(
-                new ASTNode(ctx.RIGHT_SQUARE_BRACKET().getText()));
-        stack.peek().addChild(currentNode);
+        super.exitExp_list(ctx);
     }
 
     @Override
