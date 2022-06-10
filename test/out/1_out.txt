@@ -91,5 +91,15 @@
         [int32]
         NN
       nnnn
+      struct
+        M
+        struct
+          MM
+          [char]
+          zzz
+        mmm
+        mmm2
+      mm
+      mm2
       [[w_w::a]]
       scName

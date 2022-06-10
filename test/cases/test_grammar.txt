@@ -3,7 +3,7 @@ module a{
         struct c{
             int8 d;
             char e;
-        };
+        }h;
         string f;
     };
 };

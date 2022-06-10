@@ -9,7 +9,6 @@ package semantics;
 import semantics.exceptions.NamingConflictException;
 
 import java.util.HashMap;
-import java.util.Stack;
 
 /**
  * @author IFV
@@ -30,8 +29,9 @@ public class SymbolMap {
      */
     public static void insertName(String name, String type) throws NamingConflictException {
         String tempName;
+
         if (!fullNameScope.isBlank()) {  //且当前域不为根域
-            tempName = fullNameScope + "::" + "name";
+            tempName = fullNameScope + "::" + name;
         } else {
             tempName = name;
         }
@@ -61,12 +61,17 @@ public class SymbolMap {
      * 移除当前域的最后一项，一般在某个{@code listener}的exit方法调用。
      */
     public static void removeName() {
-        fullNameScope = fullNameScope.substring(
-                0, fullNameScope.lastIndexOf("::"));
+        if (fullNameScope.contains("::")) {
+            fullNameScope = fullNameScope.substring(
+                    0, fullNameScope.lastIndexOf("::"));
+        } else {
+            fullNameScope = "";
+        }
     }
 
     /**
      * 判断当前变量名是否已经在符号表中存在。
+     *
      * @param name 要判断的变量名
      * @return 判断结果。
      * <br>如果存在返回true；否则返回false
@@ -75,22 +80,26 @@ public class SymbolMap {
         return symbolMap.containsKey(name);
     }
 
+
     /**
      * 判断符号表中的scoped_name变量类型是否合法。
      *
      * @return 是否合法。<br>
      * 如果合法返回true；否则返回false。
      */
-    public static boolean scopesAllLegal() {
+    public static boolean isScopesAllLegal() {
 
         for (String type :
                 symbolMap.values()) {
             if (type.contains("::")) {
-                for (String scope :
-                        symbolMap.keySet()) {
-                    if (scope.equals(type)) {
-                        return true;
-                    }
+                if (
+                        symbolMap.containsKey(type)
+                        && (
+                                symbolMap.get(type).equals("struct")
+                                || symbolMap.get(type).equals("module")
+                )
+                ) {
+                    return true;
                 }
             }
         }
