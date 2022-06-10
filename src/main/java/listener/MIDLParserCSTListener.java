@@ -352,26 +352,96 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     }
 
     @Override
-    public void enterUnsigned_int(MIDLParser.Unsigned_intContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString(), "uint"));
+    public void enterUINT16(MIDLParser.UINT16Context ctx) {
+
+        stack.push(new ASTNode("[uint16]"));
     }
 
     @Override
-    public void exitUnsigned_int(MIDLParser.Unsigned_intContext ctx) {
+    public void exitUINT16(MIDLParser.UINT16Context ctx) {
         currentNode = stack.pop();
         stack.peek().addChild(currentNode);
     }
 
     @Override
-    public void enterSigned_int(MIDLParser.Signed_intContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString(), "int"));
+    public void enterUINT32(MIDLParser.UINT32Context ctx) {
+
+        stack.push(new ASTNode("[uint32]"));
     }
 
     @Override
-    public void exitSigned_int(MIDLParser.Signed_intContext ctx) {
+    public void exitUINT32(MIDLParser.UINT32Context ctx) {
         currentNode = stack.pop();
         stack.peek().addChild(currentNode);
     }
+
+    @Override
+    public void enterUINT64(MIDLParser.UINT64Context ctx) {
+
+        stack.push(new ASTNode("[uint64]"));
+    }
+
+    @Override
+    public void exitUINT64(MIDLParser.UINT64Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterUINT8(MIDLParser.UINT8Context ctx) {
+        stack.push(new ASTNode("[uint8]"));
+    }
+
+    @Override
+    public void exitUINT8(MIDLParser.UINT8Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT16(MIDLParser.INT16Context ctx) {
+        stack.push(new ASTNode("[int16]"));
+    }
+
+    @Override
+    public void exitINT16(MIDLParser.INT16Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT32(MIDLParser.INT32Context ctx) {
+        stack.push(new ASTNode("[int32]"));
+    }
+
+    @Override
+    public void exitINT32(MIDLParser.INT32Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT64(MIDLParser.INT64Context ctx) {
+        stack.push(new ASTNode("[int64]"));
+    }
+
+    @Override
+    public void exitINT64(MIDLParser.INT64Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT8(MIDLParser.INT8Context ctx) {
+        stack.push(new ASTNode("[int8]"));
+    }
+
+    @Override
+    public void exitINT8(MIDLParser.INT8Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
 
     @Override
     public void enterFloat_pt_type(MIDLParser.Float_pt_typeContext ctx) {

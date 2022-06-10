@@ -16,7 +16,7 @@
         "a"
       [int8]
       i
-      [long, long]
+      [int64]
       lli
         =
         +
@@ -68,7 +68,7 @@
         =
         -
           0.1
-      [unsigned, short]
+      [uint16]
       u
       [boolean]
       shift
