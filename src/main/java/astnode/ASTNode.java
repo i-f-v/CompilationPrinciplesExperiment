@@ -1,6 +1,6 @@
 package astnode;
 
-import semantics.SymbolMap;
+import semantics.util.SymbolMap;
 import semantics.exceptions.NamingConflictException;
 
 import java.util.ArrayList;

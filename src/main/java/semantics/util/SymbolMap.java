@@ -4,7 +4,7 @@
  * Date:     2022/6/7 10:09
  * Description:
  */
-package semantics;
+package semantics.util;
 
 import semantics.exceptions.NamingConflictException;
 
