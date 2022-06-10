@@ -12,11 +12,11 @@ public class ASTNode {
 
     /**
      * 节点存储的字符串。<br>
-     * 生成的 AST 中的所有无效节点的 value 属性为 null，其余为对应的终结符。
+     * 生成的 AST 中的所有无效节点的 type 属性为 null，其余为对应的终结符。
      */
     String treeInfo;
 
-    String value;
+    String type;
     /**
      * 节点的所有子节点。
      * 叶子节点的 children 属性为 empty
@@ -34,12 +34,17 @@ public class ASTNode {
 
     /**
      * 存储终结符信息的有参构造。<br>
-     * 将 value 赋值给{@link #treeInfo}.
+     * 将 type 赋值给{@link #treeInfo}.
      *
      * @param treeInfo 构造传入的终结符
      */
     public ASTNode(String treeInfo) {
         this.treeInfo = treeInfo;
+    }
+
+    public ASTNode(String treeInfo, String type) {
+        this.treeInfo = treeInfo;
+        this.type = type;
     }
 
     public void addChild(ASTNode child) {

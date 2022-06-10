@@ -327,7 +327,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterBase_type_spec(MIDLParser.Base_type_specContext ctx) {
         if (ctx.getChild(0).getChildCount() == 0) {//子节点为终结符
-            stack.push(new ASTNode(ctx.children.toString()));
+            stack.push(new ASTNode(ctx.children.toString(), ctx.type.getText()));
         }
 //        else super.enterBase_type_spec(ctx);
     }
@@ -353,7 +353,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterUnsigned_int(MIDLParser.Unsigned_intContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString()));
+        stack.push(new ASTNode(ctx.children.toString(), "uint"));
     }
 
     @Override
@@ -364,7 +364,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterSigned_int(MIDLParser.Signed_intContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString()));
+        stack.push(new ASTNode(ctx.children.toString(), "int"));
     }
 
     @Override
@@ -375,7 +375,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterFloat_pt_type(MIDLParser.Float_pt_typeContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString()));
+        stack.push(new ASTNode(ctx.children.toString(), "float"));
     }
 
     @Override
@@ -391,7 +391,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         val.append("[[");
         for (ParseTree child :
                 ctx.children) {
-            if (val.toString().equals("[[") && child.toString().equals("::")){
+            if (val.toString().equals("[[") && child.toString().equals("::")) {
                 continue;
             }
             val.append(child.toString());
