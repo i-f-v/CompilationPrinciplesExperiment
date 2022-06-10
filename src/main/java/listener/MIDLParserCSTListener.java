@@ -51,14 +51,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         //声明节点，module以下的
         ASTNode moduleNode = new ASTNode(ctx.K_MODULE().getText());
         moduleNode.addChild(new ASTNode(ctx.ID().getText()));
-        moduleNode.addChild(new ASTNode(ctx.LEFT_BRACE().getText()));
         stack.push(moduleNode);
     }
 
     @Override
     public void exitModule(MIDLParser.ModuleContext ctx) {
         currentNode = stack.pop();
-        currentNode.addChild(new ASTNode(ctx.RIGHT_BRACE().getText()));
         stack.peek().addChild(currentNode);
     }
 
@@ -86,14 +84,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
         ASTNode structNode = new ASTNode(ctx.K_STRUCT().getText());
         structNode.addChild(new ASTNode(ctx.ID().getText()));
-        structNode.addChild(new ASTNode(ctx.LEFT_BRACE().getText()));
         stack.push(structNode);
     }
 
     @Override
     public void exitStruct_type(MIDLParser.Struct_typeContext ctx) {
         currentNode = stack.pop();
-        currentNode.addChild(new ASTNode(ctx.RIGHT_BRACE().getText()));
         stack.peek().addChild(currentNode);
     }
 

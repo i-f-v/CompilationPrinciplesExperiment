@@ -98,6 +98,16 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitDeclarator(MIDLParser.DeclaratorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MIDLParser#simple_declarator}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MIDLParser#simple_declarator}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MIDLParser#array_declarator}.
 	 * @param ctx the parse tree
 	 */
@@ -197,16 +207,6 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExp_list(MIDLParser.Exp_listContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MIDLParser#simple_declarator}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MIDLParser#simple_declarator}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MIDLParser#type_spec}.
 	 * @param ctx the parse tree

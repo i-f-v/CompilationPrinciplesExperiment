@@ -30,6 +30,10 @@ declarator
     | array_declarator
     ;
 
+simple_declarator:
+    ID (EQUAL or_expr)?
+    ;
+
 array_declarator: ID LEFT_SQUARE_BRACKET or_expr RIGHT_SQUARE_BRACKET (EQUAL exp_list)?;
 
 or_expr
@@ -73,8 +77,6 @@ literal
     ;
 
 exp_list: LEFT_SQUARE_BRACKET or_expr (COMMAS or_expr)* RIGHT_SQUARE_BRACKET;
-
-simple_declarator: ID (EQUAL or_expr)?;
 
 type_spec
     : struct_type

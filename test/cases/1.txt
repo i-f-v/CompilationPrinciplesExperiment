@@ -15,6 +15,9 @@ module  it {
         unsigned short u;
         boolean shift = 1<<1;
         uint8 uu = 4 | 5 & 6 ^ 7;
+        struct N {
+            int32 NN;
+        }nnnn;
         :: w_w :: a scName ;
     };
 };

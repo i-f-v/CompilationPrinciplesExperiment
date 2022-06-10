@@ -124,6 +124,18 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -239,18 +251,6 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExp_list(MIDLParser.Exp_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

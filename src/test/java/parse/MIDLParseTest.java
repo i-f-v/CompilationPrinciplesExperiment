@@ -6,6 +6,7 @@ import astnode.ASTNode;
 import gen.MIDLLexer;
 import gen.MIDLParser;
 import listener.MIDLParserCSTListener;
+import listener.exceptions.GrammarException;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -62,6 +63,11 @@ public class MIDLParseTest {
                             MIDLParser parser = new MIDLParser(new CommonTokenStream(lexer));
 
                             ParseTree tree = parser.specification();
+
+                            if (parser.getNumberOfSyntaxErrors() > 0) {
+                                throw new GrammarException();
+                            }
+
                             ParseTreeWalker walker = new ParseTreeWalker();
 
                             MIDLParserCSTListener listener = new MIDLParserCSTListener();
@@ -75,10 +81,13 @@ public class MIDLParseTest {
                             //写入文件
                             writer = new FileWriter(TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
                                     + "_out" + ".txt");
-
+                            System.out.println("成功，转化后的AST路径为：" + TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
+                                    + "_out" + ".txt");
                             writer.write(out);
                         } catch (IOException e) {
-                            System.out.println("Invalid file.");
+                            System.err.println("Invalid file.");
+                        } catch (GrammarException e) {
+                            System.err.println("文件 " + file.getName() + " 出现词法或语法错误");
                         } finally {
                             if (writer != null) {
                                 writer.close();
@@ -87,6 +96,7 @@ public class MIDLParseTest {
                     }
                 }
         }
+
 
     }
 }

@@ -1,19 +1,15 @@
   module
     it
-    {
     struct
       e
     struct
       d1
     module
       w_w
-      {
       struct
         a
-      }
     struct
       b
-      {
       [string]
       s
         =
@@ -90,7 +86,10 @@
               5
               6
             7
+      struct
+        N
+        [int32]
+        NN
+      nnnn
       [[w_w::a]]
       scName
-      }
-    }
