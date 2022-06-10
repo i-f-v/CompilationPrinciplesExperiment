@@ -1441,6 +1441,7 @@ public class MIDLParser extends Parser {
 	}
 
 	public static class LiteralContext extends ParserRuleContext {
+		public Token type;
 		public TerminalNode INTEGER() { return getToken(MIDLParser.INTEGER, 0); }
 		public TerminalNode FLOATING_PT() { return getToken(MIDLParser.FLOATING_PT, 0); }
 		public TerminalNode CHAR() { return getToken(MIDLParser.CHAR, 0); }
@@ -1468,9 +1469,10 @@ public class MIDLParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(212);
+			((LiteralContext)_localctx).type = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTEGER) | (1L << CHAR) | (1L << STRING) | (1L << BOOLEAN) | (1L << FLOATING_PT))) != 0)) ) {
-			_errHandler.recoverInline(this);
+				((LiteralContext)_localctx).type = (Token)_errHandler.recoverInline(this);
 			}
 			else {
 				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;

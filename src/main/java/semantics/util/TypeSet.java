@@ -9,14 +9,13 @@ package semantics.util;
 import java.util.HashSet;
 
 /**
- *
  * @author IFV
  * @create 2022/6/10
  * @since 1.0.0
  */
 public class TypeSet {
 
-    private static final HashSet<String> typeset = new HashSet<>(){
+    private static final HashSet<String> typeset = new HashSet<>() {
         {
             add("int8");
             add("int16");
@@ -34,7 +33,27 @@ public class TypeSet {
         }
     };
 
-    public boolean inTypeSet(String s){
+    public static boolean inTypeSet(String s) {
         return typeset.contains(s);
+    }
+
+    public static String findType(String value) {
+        if (value.startsWith("\"")) {
+            return "string";
+        } else if (value.startsWith("'")) {
+            return "char";
+        } else if (value.equalsIgnoreCase("true") ||
+                value.equalsIgnoreCase("false")) {
+            return "boolean";
+        } else if (value.contains(".") ||
+                value.toLowerCase().contains("e") ||
+                value.toLowerCase().contains("d") ||
+                value.toLowerCase().contains("f")) {
+            return "float";
+
+        } else {
+            return "int";
+        }
+
     }
 }

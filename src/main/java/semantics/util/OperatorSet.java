@@ -21,32 +21,50 @@ public class OperatorSet {
         {
             //二元运算符
             add(new Pair<>("+", "int"));
+            add(new Pair<>("+", "uint"));
             add(new Pair<>("+", "float"));
             add(new Pair<>("+", "string"));
             add(new Pair<>("-", "int"));
+            add(new Pair<>("-", "uint"));
             add(new Pair<>("-", "float"));
             add(new Pair<>("*", "int"));
+            add(new Pair<>("*", "uint"));
             add(new Pair<>("*", "float"));
             add(new Pair<>("/", "int"));
+            add(new Pair<>("/", "uint"));
             add(new Pair<>("/", "float"));
             add(new Pair<>("%", "int"));
+            add(new Pair<>("%", "uint"));
             add(new Pair<>(">>", "int"));
+            add(new Pair<>(">>", "uint"));
             add(new Pair<>("<<", "int"));
-            add(new Pair<>("|", "bool"));
-            add(new Pair<>("&", "bool"));
-            add(new Pair<>("^", "bool"));
+            add(new Pair<>("<<", "uint"));
+            add(new Pair<>("|", "boolean"));
+            add(new Pair<>("&", "boolean"));
+            add(new Pair<>("^", "boolean"));
             //一元运算符
             add(new Pair<>("+1", "int"));
+            add(new Pair<>("+1", "uint"));
             add(new Pair<>("+1", "float"));
             add(new Pair<>("-1", "int"));
             add(new Pair<>("-1", "float"));
             add(new Pair<>("~1", "int"));
-            add(new Pair<>("~1", "float"));
+            add(new Pair<>("~", "int"));
         }
     };
 
     public static boolean inOpSet(String op, String type) {
 
         return set.contains(new Pair<>(op, type));
+    }
+
+    public static boolean inOpSet(String op){
+        for (Pair<String, String> pair :
+                set) {
+            if (pair.getA().equals(op)){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -44,7 +44,11 @@ public class SymbolMap {
         symbolMap.put(tempName, type);
 
         //更新当前域
-        fullNameScope = fullNameScope + "::" + name;
+        if (type.equals("module") ||
+                type.equals("struct") ||
+                type.equals("struct_in")) {
+            fullNameScope = fullNameScope + "::" + name;
+        }
     }
 
     /**
@@ -94,10 +98,10 @@ public class SymbolMap {
             if (type.contains("::")) {
                 if (
                         symbolMap.containsKey(type)
-                        && (
+                                && (
                                 symbolMap.get(type).equals("struct")
-                                || symbolMap.get(type).equals("module")
-                )
+                                        || symbolMap.get(type).equals("struct_in")
+                        )
                 ) {
                     return true;
                 }

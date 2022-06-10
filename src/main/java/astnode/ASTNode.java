@@ -1,7 +1,10 @@
 package astnode;
 
-import semantics.util.SymbolMap;
 import semantics.exceptions.NamingConflictException;
+import semantics.exceptions.VariableTypeConflictException;
+import semantics.util.OperatorSet;
+import semantics.util.SymbolMap;
+import semantics.util.TypeSet;
 
 import java.util.ArrayList;
 
@@ -14,9 +17,9 @@ public class ASTNode {
      * 节点存储的字符串。<br>
      * 生成的 AST 中的所有无效节点的 type 属性为 null，其余为对应的终结符。
      */
-    String treeInfo;
+    private String treeInfo;
 
-    String type;
+    private String type;
     /**
      * 节点的所有子节点。
      * 叶子节点的 children 属性为 empty
@@ -26,8 +29,6 @@ public class ASTNode {
     /**
      * 无效辅助节点的无参构造。{@link #treeInfo}属性不初始化，始终为null。
      */
-
-    private static String currentScope = "";
 
     public ASTNode() {
     }
@@ -86,7 +87,7 @@ public class ASTNode {
      * @param root 待分析的AST的根节点
      * @throws NamingConflictException 命名冲突异常
      */
-    public void semanticCheck(ASTNode root) throws NamingConflictException {
+    public void semanticCheck(ASTNode root) throws NamingConflictException, VariableTypeConflictException {
 
         if (root.treeInfo == null || root.treeInfo.isEmpty()) {//根节点
             for (ASTNode node :
@@ -95,55 +96,118 @@ public class ASTNode {
             }
             return;
         }
-        if (root.children.isEmpty()) {//叶子节点
+        if (root.treeInfo.equals("module")) {
+            //module节点，子节点仅有module和struct
 
-        } else {
-            if (root.treeInfo.equals("module")) {//module节点
+            SymbolMap.insertName(
+                    root.children.get(0).treeInfo,
+                    "module");
 
-                SymbolMap.insertName(
-                        root.children.get(0).treeInfo, "module");
-
-                currentScope = SymbolMap.getNamingScope();
-
-                for (int i = 2; i < children.size() - 1; i++) {
-                    for (ASTNode node :
-                            root.children) {
-                        semanticCheck(node);
-                    }
+            if (root.children.size() > 1) {
+                for (ASTNode node :
+                        root.children.subList(1, root.children.size())) {
+                    semanticCheck(node);
 
                 }
-            } else if (root.treeInfo.equals("struct")) {//struct节点
+            }
+            SymbolMap.removeName();
+        } else if (root.treeInfo.equals("struct")) {
+            //struct节点，子节点为struct_in，基本类型，scoped_name类型，和变量名ID
 
-                String name;
-                SymbolMap.insertName(
-                        root.children.get(0).treeInfo, "module");
-                currentScope = SymbolMap.getNamingScope();
+            SymbolMap.insertName(
+                    root.children.get(0).treeInfo, "struct");
 
-                if (root.children.size() > 3) {//有成员的struct
+            structTypeProcess(root);
+        } else if (root.treeInfo.equals("struct_in")) {
 
-                    for (int i = 2; i < children.size() - 1; i++) {
+            SymbolMap.insertName(
+                    root.children.get(0).treeInfo, "struct_in");
 
-                        String val = children.get(i).treeInfo;
-                        if (val.startsWith("[[")) {//scoped_name节点
-                            name = val.substring(
-                                    val.indexOf("[[") + 2,
-                                    val.indexOf("]]"));
+            structTypeProcess(root);
 
-                        } else if (val.startsWith("[")) {//基本类型节点
-                            name = val.substring(
-                                    val.indexOf("[") + 1,
-                                    val.indexOf("]")
-                            );
-                        } else {//变量名
+        } else if (TypeSet.inTypeSet(root.type)) {//变量名ID，且有赋值语句
+            if (root.children.get(0).treeInfo.equals("=")) {//非数组的赋值语句
+                operatorProcess(root.children.get(1), root.type);
+            } else if (
+                    TypeSet.findType(root.children.get(0).treeInfo)
+                            .equals("int")) {//数组声明
+                if (root.children.size() > 1){
+                    for (ASTNode n :
+                            root.children.subList(1,root.children.size())) {
+                        operatorProcess(n, root.type);
+                    }
+                }
+            }
+        }
+    }
 
-                        }
+    private void operatorProcess(ASTNode root, String dType) throws VariableTypeConflictException {
+        String temp = dType;
+        if (dType.startsWith("uint")) {
+            dType = dType.substring(1);
+        }
+        switch (root.children.size()) {
+            case 0://字面量
+                if (!dType.startsWith(TypeSet.findType(root.treeInfo))) {//类型不匹配
+                    throw new VariableTypeConflictException();
+                }
+            case 1://单目运算符
+                if (!OperatorSet.inOpSet(root.treeInfo + "1", dType) ||
+                        temp.startsWith("uint") && root.treeInfo.equals("-")
+                ) {
+                    throw new VariableTypeConflictException();
+                }
+
+            case 2://双目运算符
+            default:
+                if (!OperatorSet.inOpSet(root.treeInfo, dType)) {
+                    throw new VariableTypeConflictException();
+                }
+                operatorProcess(root.children.get(0), dType);
+                operatorProcess(root.children.get(1), dType);
+
+        }
+    }
+
+    private void structTypeProcess(ASTNode root) throws NamingConflictException, VariableTypeConflictException {
+        String dType = "";
+
+        if (root.children.size() > 1) {
+            for (ASTNode n :
+                    root.children.subList(1, root.children.size())) {
+                if (n.treeInfo.equals("struct")) {
+                    dType = SymbolMap.getNamingScope() +
+                            "::" +
+                            n.children.get(0).treeInfo;
+                    n.setTreeInfo("struct_in");
+                    semanticCheck(n);
+                }
+
+                if (n.treeInfo.startsWith("[") &&
+                        !n.treeInfo.startsWith("[[")) {//基本类型
+                    dType = n.treeInfo.substring(1, n.treeInfo.indexOf("]"));
+                } else if (n.treeInfo.startsWith("[[")) {//scoped_name 类型
+                    dType = n.treeInfo.substring(2, n.treeInfo.indexOf("]]"));
+                } else {//变量名ID
+                    SymbolMap.insertName(n.treeInfo, dType);
+                    if (!n.children.isEmpty()) {//有赋值语句
+                        n.setType(dType);
+                        semanticCheck(n.children.get(1));
                     }
                 }
             }
         }
 
+        SymbolMap.removeName();
     }
 
+    public void setTreeInfo(String treeInfo) {
+        this.treeInfo = treeInfo;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     /**
      * 生成一个由数量为 {length} * 2 个空格组成的字符串

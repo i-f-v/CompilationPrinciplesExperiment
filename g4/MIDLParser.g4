@@ -69,11 +69,11 @@ multi_expr
 unary_expr: op = (MINUS | PLUS | WAVE)? literal;
 
 literal
-    : INTEGER
-    | FLOATING_PT
-    | CHAR
-    | STRING
-    | BOOLEAN
+    : type = (INTEGER
+        | FLOATING_PT
+        | CHAR
+        | STRING
+        | BOOLEAN)
     ;
 
 exp_list: LEFT_SQUARE_BRACKET or_expr (COMMAS or_expr)* RIGHT_SQUARE_BRACKET;
