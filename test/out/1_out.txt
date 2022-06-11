@@ -1,57 +1,52 @@
+module
+  it
+  {
+  struct
+    e
+  struct
+    d1
   module
-    it
+    w_w
     {
     struct
-      e
-    struct
-      d1
-    module
-      w_w
-      {
-      struct
-        a
-      }
-    struct
-      b
-      {
-      [string]
-        s
-        =
-        "a"
-      [int8]
-        i
-        j
-      [long, long]
-        lli
-        =
-        +
-          1
-          *
-            2
-            3
-      [char]
-        chars
-        5
-          [
-          'a'
-          'b'
-          'c'
-          'd'
-          'e'
-          ]
-        c1
-        [
-        3
-        ]
-        c2
-      [double]
-        f
-        [
-        22
-        ]
-      [int8]
-        re
-        =
+      a
+    }
+  struct
+    b
+    {
+    [string]
+    s
+      =
+      "a"
+    [int8]
+    i
+    [long, long]
+    lli
+      =
+      +
+        1
+        *
+          2
+          3
+    [char]
+    chars
+    5
+    [
+    'a'
+    'b'
+    'c'
+    'd'
+    'e'
+    ]
+    [double]
+    f
+    [
+    22
+    ]
+    [int8]
+    re
+      =
+      +
         +
           +
             +
@@ -59,54 +54,50 @@
                 +
                   +
                     +
-                      +
-                        -
-                          0
-                          1
-                        2
-                      3
-                    4
-                  5
-                6
-              7
-            8
-          9
-      [float]
-        ff
-        =
-        -
-          0.1
-      [unsigned, short]
-        u
-      [boolean]
-        shift
-        =
-        <<
-          1
-          1
-      [uint8]
-        uu
-        =
-        |
-          4
-          ^
-            &
-              5
+                      -
+                        0
+                        1
+                      2
+                    3
+                  4
+                5
               6
             7
-      ::w_w::a
-        scName
-      [int8]
-        k
-        =
-        +
-          1
-          1
-      }
+          8
+        9
+    [float]
+    ff
+      =
+      -
+        0.1
+    [unsigned, short]
+    u
+    [boolean]
+    shift
+      =
+      <<
+        1
+        1
+    [uint8]
+    uu
+      =
+      |
+        4
+        ^
+          &
+            5
+            6
+          7
+    ::
+    w_w
+    ::
+    a
+    scName
     }
-  module
-    t2
-    {
-    struct
-      a
-    }
+  }
+module
+  t2
+  {
+  struct
+    a
+  }
