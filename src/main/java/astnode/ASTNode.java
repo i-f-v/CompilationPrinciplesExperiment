@@ -117,13 +117,89 @@ public class ASTNode {
             SymbolMap.insertName(
                     root.children.get(0).treeInfo, "struct");
 
-            structTypeProcess(root);
+            String dType = "";
+
+            if (root.children.size() > 1) {
+                for (ASTNode n :
+                        root.children.subList(1, root.children.size())) {
+                    if (n.treeInfo.equals("struct")) {
+                        dType = SymbolMap.getNamingScope() +
+                                "::" +
+                                n.children.get(0).treeInfo;
+                        n.setTreeInfo("struct_in");
+                        semanticCheck(n);
+                    } else if (n.treeInfo.startsWith("[") &&
+                            !n.treeInfo.startsWith("[[")) {//基本类型
+                        dType = n.treeInfo.substring(1, n.treeInfo.indexOf("]"));
+                    } else if (n.treeInfo.startsWith("[[")) {//scoped_name 类型
+                        dType = n.treeInfo.substring(2, n.treeInfo.indexOf("]]"));
+                    } else {//变量名ID
+                        SymbolMap.insertName(n.treeInfo, dType);
+                        if (n.children.size() > 1) {
+                            if (n.children.get(0).treeInfo.equals("=")) {//有赋值语句
+                                n.setType(dType);
+                                operatorProcess(n.children.get(1), dType);//todo 有错 debug继续运行五次到错误处
+                            } else {//数组
+                                if (root.children.size() !=
+                                        Integer.parseInt(root.children.get(0).treeInfo)) {
+                                    throw new VariableTypeConflictException();
+                                }
+                                for (ASTNode n1 :
+                                        root.children.subList(1, root.children.size())) {
+                                    operatorProcess(n1, dType);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            SymbolMap.removeName();
         } else if (root.treeInfo.equals("struct_in")) {
 
             SymbolMap.insertName(
                     root.children.get(0).treeInfo, "struct_in");
 
-            structTypeProcess(root);
+            String dType = "";
+
+            if (root.children.size() > 1) {
+                for (ASTNode n :
+                        root.children.subList(1, root.children.size())) {
+                    if (n.treeInfo.equals("struct")) {
+                        dType = SymbolMap.getNamingScope() +
+                                "::" +
+                                n.children.get(0).treeInfo;
+                        n.setTreeInfo("struct_in");
+                        semanticCheck(n);
+                    }
+
+                    if (n.treeInfo.startsWith("[") &&
+                            !n.treeInfo.startsWith("[[")) {//基本类型
+                        dType = n.treeInfo.substring(1, n.treeInfo.indexOf("]"));
+                    } else if (n.treeInfo.startsWith("[[")) {//scoped_name 类型
+                        dType = n.treeInfo.substring(2, n.treeInfo.indexOf("]]"));
+                    } else {//变量名ID
+                        SymbolMap.insertName(n.treeInfo, dType);
+                        if (n.children.size() > 1) {
+                            if (n.children.get(0).treeInfo.equals("=")) {//有赋值语句
+                                n.setType(dType);
+                                operatorProcess(n.children.get(1), dType);//todo 有错 debug继续运行五次到错误处
+                            } else {//数组
+                                if (root.children.size() !=
+                                        Integer.parseInt(root.children.get(0).treeInfo)) {
+                                    throw new VariableTypeConflictException();
+                                }
+                                for (ASTNode n1 :
+                                        root.children.subList(1, root.children.size())) {
+                                    operatorProcess(n1, dType);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            SymbolMap.removeName();
 
         } else if (TypeSet.inTypeSet(root.type)) {//变量名ID，且有赋值语句
             if (root.children.get(0).treeInfo.equals("=")) {//非数组的赋值语句
@@ -131,9 +207,16 @@ public class ASTNode {
             } else if (
                     TypeSet.findType(root.children.get(0).treeInfo)
                             .equals("int")) {//数组声明
-                if (root.children.size() > 1){
+                if (root.children.size() > 1) {
+
+                    if (
+                            !(root.children.size() ==
+                                    Integer.parseInt(root.children.get(0).treeInfo))
+                    ) {//数组与初始化元素个数不一致
+                        throw new VariableTypeConflictException();
+                    }
                     for (ASTNode n :
-                            root.children.subList(1,root.children.size())) {
+                            root.children.subList(1, root.children.size())) {
                         operatorProcess(n, root.type);
                     }
                 }
@@ -192,7 +275,7 @@ public class ASTNode {
                     SymbolMap.insertName(n.treeInfo, dType);
                     if (!n.children.isEmpty()) {//有赋值语句
                         n.setType(dType);
-                        semanticCheck(n.children.get(1));
+                        semanticCheck(n.children.get(1));//todo 有错 debug继续运行五次到错误处
                     }
                 }
             }

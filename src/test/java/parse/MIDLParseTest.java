@@ -89,6 +89,8 @@ public class MIDLParseTest {
                             //语义检查
                             outputTree.semanticCheck(outputTree);
 
+                            System.out.println(TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
+                                    + "_out" + ".txt" + "语义分析通过");
 
 
                         } catch (IOException e) {
@@ -97,10 +99,10 @@ public class MIDLParseTest {
                             System.err.println("文件 " + file.getName() + " 出现词法或语法错误");
                         } catch (NamingConflictException e) {
                             //todo
-                            throw new RuntimeException(e);
+                            System.err.println("命名冲突");
                         } catch (VariableTypeConflictException e) {
                             //todo
-                            throw new RuntimeException(e);
+                            System.err.println("变量类型不匹配");
                         } finally {
                             if (writer != null) {
                                 writer.close();
