@@ -6,8 +6,6 @@
  */
 package semantics.symblemap;
 
-import semantics.exceptions.VariableNamingConflictException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,30 +35,22 @@ public class SemanticUnit {
         children = new ArrayList<>();
     }
 
-
-    public void setType(String type) {
+    public SemanticUnit(String name, String type) {
+        this.children = new ArrayList<>();
         this.type = type;
-    }
-
-    public void setName(String name) {
         this.name = name;
+        if (type.equals("module") || type.equals("struct")) {
+            this.symbols = new HashMap<>();
+        }
     }
 
-    public void setValue(String value) {
+    public SemanticUnit(String name, String type, String value) {
+        this.type = type;
+        this.name = name;
         this.value = value;
     }
 
-    public void addChild(SemanticUnit unit) {
+    public void addChild(SemanticUnit unit){
         this.children.add(unit);
-    }
-
-    public SemanticUnit getChild(int index){
-        return children.get(index);
-    }
-
-    public void insert(String name, String type) throws VariableNamingConflictException {
-        if (symbols.containsKey(name)) {
-            throw new VariableNamingConflictException();
-        } else symbols.put(name, type);
     }
 }

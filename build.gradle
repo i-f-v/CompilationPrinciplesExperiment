@@ -15,8 +15,6 @@ repositories {
 dependencies {
     implementation group: 'org.antlr', name: 'antlr4-runtime', version: '4.10.1'
     implementation group: 'org.antlr', name: 'antlr4', version: '4.10.1'
-    implementation group: 'org.antlr', name: 'ST4', version: '4.3.3'
-
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.json:json:20180813'
 }

@@ -8,7 +8,7 @@ module  it {
         string s = "a";
         int8 i,j;
         long long  lli = 1 + 2 * 3;
-        char chars[5] = ['a','b','c','d','e'],c1[3],c2 = 'z',c3;
+        char chars[5] = ['a','b','c','d','e'],c1[3],c2;
         double f[22];
         int8 re = 0-1+2+3+4+5+6+7+8+9;
         float ff = -0.1;
