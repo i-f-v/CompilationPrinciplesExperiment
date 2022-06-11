@@ -12,7 +12,6 @@ import java.util.Stack;
  */
 public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
-    private static final String FLAG = "expList";
     //用于保存最终遍历结果的树
     static ASTNode root;
     Stack<ASTNode> stack;
@@ -25,7 +24,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterSpecification(MIDLParser.SpecificationContext ctx) {
         //顶端节点，无参构造，只压栈
-        root = new ASTNode("SPEC");
+        root = new ASTNode();
         stack.push(root);
     }
 
@@ -140,8 +139,13 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) {
-        ASTNode arrayDeclaratorNode = new ASTNode(ctx.ID().getText());
-
+        ASTNode arrayDeclaratorNode = new ASTNode();
+        arrayDeclaratorNode.addChild(
+                new ASTNode(ctx.ID().getText()));
+        if (ctx.getChildCount() == 4) {//没有EQUAL exp_list
+            arrayDeclaratorNode.addChild(
+                    new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
+        }
         stack.push(arrayDeclaratorNode);
 
     }
@@ -150,6 +154,10 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     public void exitArray_declarator(MIDLParser.Array_declaratorContext ctx) {
 
         currentNode = stack.pop();
+        if (ctx.getChildCount() == 4) {
+            currentNode.addChild(
+                    new ASTNode(ctx.RIGHT_SQUARE_BRACKET().getText()));
+        }
         stack.peek().addChild(currentNode);
     }
 
@@ -291,7 +299,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterExp_list(MIDLParser.Exp_listContext ctx) {
 
-        ASTNode expListNode = new ASTNode(FLAG);
+        ASTNode expListNode = new ASTNode();
         expListNode.addChild(
                 new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
         stack.push(expListNode);
@@ -307,12 +315,15 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) {
-        ASTNode simpleDeclarator = new ASTNode(ctx.ID().getText());
+        ASTNode simpleDeclarator = new ASTNode();
+        ASTNode child = new ASTNode(ctx.ID().getText());
         if (ctx.getChildCount() == 1) {
             stack.push(simpleDeclarator);
+            stack.push(child);
         } else {
-            simpleDeclarator.addChild(new ASTNode(ctx.EQUAL().getText()));
             stack.push(simpleDeclarator);
+            child.addChild(new ASTNode(ctx.EQUAL().getText()));
+            stack.push(child);
         }
 
 
@@ -320,6 +331,8 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
         currentNode = stack.pop();
         stack.peek().addChild(currentNode);
     }
@@ -396,14 +409,13 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterScoped_name(MIDLParser.Scoped_nameContext ctx) {
+        //将每一个终结符挂载到当前栈顶
         StringBuilder scope = new StringBuilder();
-        scope.append("[[");
         for (ParseTree child :
                 ctx.children) {
 
             scope.append(child.toString());
         }
-        scope.append("]]");
         currentNode = new ASTNode(scope.toString());
         stack.peek().addChild(currentNode);
 
