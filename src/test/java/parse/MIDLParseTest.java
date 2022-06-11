@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
 import semantics.exceptions.NamingConflictException;
 import semantics.exceptions.VariableTypeConflictException;
+import semantics.util.SymbolMap;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -89,6 +90,8 @@ public class MIDLParseTest {
                             //语义检查
                             outputTree.semanticCheck(outputTree);
 
+                            SymbolMap.isScopesAllLegal();
+
                             System.out.println(TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
                                     + "_out" + ".txt" + "语义分析通过");
 
@@ -98,8 +101,8 @@ public class MIDLParseTest {
                         } catch (GrammarException e) {
                             System.err.println("文件 " + file.getName() + " 出现词法或语法错误");
                         } catch (NamingConflictException e) {
-                            //todo
-                            System.err.println("命名冲突");
+                            System.err.println("在" + e.getPath() +
+                                    "中出现结构体未定义就使用或scoped_name引用非法");
                         } catch (VariableTypeConflictException e) {
                             //todo
                             System.err.println("变量类型不匹配");

@@ -85,9 +85,11 @@ public class ASTNode {
      * 语义分析
      *
      * @param root 待分析的AST的根节点
-     * @throws NamingConflictException 命名冲突异常
+     * @throws NamingConflictException       命名冲突异常
+     * @throws VariableTypeConflictException 变量类型不匹配异常
      */
-    public void semanticCheck(ASTNode root) throws NamingConflictException, VariableTypeConflictException {
+    public void semanticCheck(ASTNode root)
+            throws NamingConflictException, VariableTypeConflictException {
 
         if (root.treeInfo == null || root.treeInfo.isEmpty()) {//根节点
             for (ASTNode node :
@@ -99,23 +101,33 @@ public class ASTNode {
         if (root.treeInfo.equals("module")) {
             //module节点，子节点仅有module和struct
 
-            SymbolMap.insertName(
-                    root.children.get(0).treeInfo,
-                    "module");
+            try {
+                SymbolMap.insertName(
+                        root.children.get(0).treeInfo,
+                        "module");
 
-            if (root.children.size() > 1) {
-                for (ASTNode node :
-                        root.children.subList(1, root.children.size())) {
-                    semanticCheck(node);
+                if (root.children.size() > 1) {
+                    for (ASTNode node :
+                            root.children.subList(1, root.children.size())) {
+                        semanticCheck(node);
 
+                    }
                 }
+            } catch (NamingConflictException e) {
+                System.err.println("出现命名冲突");
+            } finally {
+                SymbolMap.removeName();
             }
-            SymbolMap.removeName();
+
         } else if (root.treeInfo.equals("struct")) {
             //struct节点，子节点为struct_in，基本类型，scoped_name类型，和变量名ID
 
-            SymbolMap.insertName(
-                    root.children.get(0).treeInfo, "struct");
+            try {
+                SymbolMap.insertName(
+                        root.children.get(0).treeInfo, "struct");
+            } catch (NamingConflictException e) {
+                System.err.println("出现命名冲突");
+            }
 
             String dType = "";
 
@@ -134,11 +146,15 @@ public class ASTNode {
                     } else if (n.treeInfo.startsWith("[[")) {//scoped_name 类型
                         dType = n.treeInfo.substring(2, n.treeInfo.indexOf("]]"));
                     } else {//变量名ID
-                        SymbolMap.insertName(n.treeInfo, dType);
+                        try {
+                            SymbolMap.insertName(n.treeInfo, dType);
+                        } catch (NamingConflictException e) {
+                            System.err.println("出现命名冲突");
+                        }
                         if (n.children.size() > 1) {
                             if (n.children.get(0).treeInfo.equals("=")) {//有赋值语句
                                 n.setType(dType);
-                                operatorProcess(n.children.get(1), dType);//todo 有错 debug继续运行五次到错误处
+                                operatorProcess(n.children.get(1), dType);
                             } else {//数组
                                 if (root.children.size() !=
                                         Integer.parseInt(root.children.get(0).treeInfo)) {
@@ -157,9 +173,12 @@ public class ASTNode {
             SymbolMap.removeName();
         } else if (root.treeInfo.equals("struct_in")) {
 
-            SymbolMap.insertName(
-                    root.children.get(0).treeInfo, "struct_in");
-
+            try {
+                SymbolMap.insertName(
+                        root.children.get(0).treeInfo, "struct_in");
+            } catch (NamingConflictException e) {
+                System.err.println("出现命名冲突");
+            }
             String dType = "";
 
             if (root.children.size() > 1) {
@@ -179,12 +198,15 @@ public class ASTNode {
                     } else if (n.treeInfo.startsWith("[[")) {//scoped_name 类型
                         dType = n.treeInfo.substring(2, n.treeInfo.indexOf("]]"));
                     } else {//变量名ID
-                        SymbolMap.insertName(n.treeInfo, dType);
+                        try {
+                            SymbolMap.insertName(n.treeInfo, dType);
+                        } catch (NamingConflictException e) {
+                            System.err.println("出现命名冲突");
+                        }
                         if (n.children.size() > 1) {
                             if (n.children.get(0).treeInfo.equals("=")) {//有赋值语句
                                 n.setType(dType);
-                                operatorProcess(n.children.get(1), dType);//todo 有错 debug继续运行五次到错误处
-                            } else {//数组
+                                operatorProcess(n.children.get(1), dType);          } else {//数组
                                 if (root.children.size() !=
                                         Integer.parseInt(root.children.get(0).treeInfo)) {
                                     throw new VariableTypeConflictException();
@@ -209,10 +231,17 @@ public class ASTNode {
                             .equals("int")) {//数组声明
                 if (root.children.size() > 1) {
 
-                    if (
-                            !(root.children.size() ==
-                                    Integer.parseInt(root.children.get(0).treeInfo))
-                    ) {//数组与初始化元素个数不一致
+                    //todo 可以考虑一下数组长度为表达式的时候
+                    try {
+                        if (Integer.parseInt(root.children.get(0).treeInfo) < 1) {//数组长度为非正数
+                            throw new VariableTypeConflictException();
+                        } else if (
+                                !(root.children.size() ==
+                                        Integer.parseInt(root.children.get(0).treeInfo))
+                        ) {//数组与初始化元素个数不一致
+                            throw new VariableTypeConflictException();
+                        }
+                    } catch (NumberFormatException e) {
                         throw new VariableTypeConflictException();
                     }
                     for (ASTNode n :
@@ -224,7 +253,8 @@ public class ASTNode {
         }
     }
 
-    private void operatorProcess(ASTNode root, String dType) throws VariableTypeConflictException {
+    private void operatorProcess(ASTNode root, String dType)
+            throws VariableTypeConflictException {
         String temp = dType;
         if (dType.startsWith("uint")) {
             dType = dType.substring(1);
@@ -233,6 +263,7 @@ public class ASTNode {
             case 0://字面量
                 if (!dType.startsWith(TypeSet.findType(root.treeInfo))) {//类型不匹配
                     throw new VariableTypeConflictException();
+
                 }
             case 1://单目运算符
                 if (!OperatorSet.inOpSet(root.treeInfo + "1", dType) ||
@@ -252,37 +283,6 @@ public class ASTNode {
         }
     }
 
-    private void structTypeProcess(ASTNode root) throws NamingConflictException, VariableTypeConflictException {
-        String dType = "";
-
-        if (root.children.size() > 1) {
-            for (ASTNode n :
-                    root.children.subList(1, root.children.size())) {
-                if (n.treeInfo.equals("struct")) {
-                    dType = SymbolMap.getNamingScope() +
-                            "::" +
-                            n.children.get(0).treeInfo;
-                    n.setTreeInfo("struct_in");
-                    semanticCheck(n);
-                }
-
-                if (n.treeInfo.startsWith("[") &&
-                        !n.treeInfo.startsWith("[[")) {//基本类型
-                    dType = n.treeInfo.substring(1, n.treeInfo.indexOf("]"));
-                } else if (n.treeInfo.startsWith("[[")) {//scoped_name 类型
-                    dType = n.treeInfo.substring(2, n.treeInfo.indexOf("]]"));
-                } else {//变量名ID
-                    SymbolMap.insertName(n.treeInfo, dType);
-                    if (!n.children.isEmpty()) {//有赋值语句
-                        n.setType(dType);
-                        semanticCheck(n.children.get(1));//todo 有错 debug继续运行五次到错误处
-                    }
-                }
-            }
-        }
-
-        SymbolMap.removeName();
-    }
 
     public void setTreeInfo(String treeInfo) {
         this.treeInfo = treeInfo;

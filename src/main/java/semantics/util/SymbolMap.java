@@ -37,7 +37,7 @@ public class SymbolMap {
         }
 
         if (containsName(tempName)) {//命名重复
-            throw new NamingConflictException();
+            throw new NamingConflictException(1, tempName);
         }
 
         //添加到符号表
@@ -87,26 +87,25 @@ public class SymbolMap {
 
     /**
      * 判断符号表中的scoped_name变量类型是否合法。
+     * 如果不合法则抛出 {@link NamingConflictException}
      *
-     * @return 是否合法。<br>
-     * 如果合法返回true；否则返回false。
+     * @throws NamingConflictException 结构体或scoped_name命名不合法
      */
-    public static boolean isScopesAllLegal() {
+    public static void isScopesAllLegal() throws NamingConflictException {
 
         for (String type :
                 symbolMap.values()) {
             if (type.contains("::")) {
                 if (
-                        symbolMap.containsKey(type)
+                        !(symbolMap.containsKey(type)
                                 && (
                                 symbolMap.get(type).equals("struct")
                                         || symbolMap.get(type).equals("struct_in")
-                        )
+                        ))
                 ) {
-                    return true;
+                    throw new NamingConflictException(2, type);
                 }
             }
         }
-        return false;
     }
 }
