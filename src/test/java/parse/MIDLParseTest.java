@@ -20,23 +20,23 @@ import java.util.Locale;
 
 
 /**
- * æµ‹è¯•ç±»ã€‚
+ * ²âÊÔÀà¡£
  */
 public class MIDLParseTest {
 
     /**
-     * æµ‹è¯•ç”¨ä¾‹çš„å­˜å‚¨è·¯å¾„
+     * ²âÊÔÓÃÀıµÄ´æ´¢Â·¾¶
      */
     public static final String TEST_CASE_HOME = "test\\cases\\";
     /**
-     * è¾“å‡ºç»“æœçš„å­˜å‚¨è·¯å¾„
+     * Êä³ö½á¹ûµÄ´æ´¢Â·¾¶
      */
     public static final String TEST_OUTPUT_HOME = "test\\out\\";
 
     /**
-     * æµ‹è¯•æ–¹æ³•ã€‚<br>
-     * å°†ç›®å½• test/cases/ ä¸‹æ‰€æœ‰çš„.txtæ–‡ä»¶æ‰§è¡Œ{@link MIDLParserCSTListener}çš„éå†æ–¹æ³•ï¼Œ<br>
-     * å¹¶å°†æ‰€æœ‰ç”¨ä¾‹çš„ç”Ÿæˆæ–‡ä»¶å‘½åä¸º"xxx_out.txt"ï¼Œä¿å­˜åœ¨ç›®å½• test/out/ä¸‹ã€‚
+     * ²âÊÔ·½·¨¡£<br>
+     * ½«Ä¿Â¼ test/cases/ ÏÂËùÓĞµÄ.txtÎÄ¼şÖ´ĞĞ{@link MIDLParserCSTListener}µÄ±éÀú·½·¨£¬<br>
+     * ²¢½«ËùÓĞÓÃÀıµÄÉú³ÉÎÄ¼şÃüÃûÎª"xxx_out.txt"£¬±£´æÔÚÄ¿Â¼ test/out/ÏÂ¡£
      */
     @Test
     @SuppressWarnings("deprecation")
@@ -51,7 +51,7 @@ public class MIDLParseTest {
                         files) {
                     if (file.isFile()
                             && file.getName().
-                            toLowerCase(Locale.ROOT).endsWith(".txt")) {// å¯¹æ‰€æœ‰ .txt æ–‡ä»¶è¿›è¡Œéå†
+                            toLowerCase(Locale.ROOT).endsWith(".txt")) {// ¶ÔËùÓĞ .txt ÎÄ¼ş½øĞĞ±éÀú
 
                         String name = file.getName();
                         try {
@@ -66,20 +66,19 @@ public class MIDLParseTest {
 
                             MIDLParserCSTListener listener = new MIDLParserCSTListener();
                             walker.walk(listener, tree);
-                            
+
+
                             ASTNode outputTree = listener.getRoot();
 
                             String out = outputTree.traverse(outputTree, 0);
 
-                            //å†™å…¥æ–‡ä»¶
+                            //Ğ´ÈëÎÄ¼ş
                             writer = new FileWriter(TEST_OUTPUT_HOME + name.substring(0, name.indexOf("."))
                                     + "_out" + ".txt");
 
                             writer.write(out);
                         } catch (IOException e) {
                             System.out.println("Invalid file.");
-                        } catch (NullPointerException e) {
-                            System.err.println("è¾“å…¥æ–‡ä»¶æœ‰è¯æ³•æˆ–è¯­æ³•é”™è¯¯");
                         } finally {
                             if (writer != null) {
                                 writer.close();
