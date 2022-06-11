@@ -98,6 +98,16 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitDeclarator(MIDLParser.DeclaratorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MIDLParser#simple_declarator}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MIDLParser#simple_declarator}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MIDLParser#array_declarator}.
 	 * @param ctx the parse tree
 	 */
@@ -198,16 +208,6 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitExp_list(MIDLParser.Exp_listContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MIDLParser#simple_declarator}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MIDLParser#simple_declarator}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MIDLParser#type_spec}.
 	 * @param ctx the parse tree
 	 */
@@ -238,25 +238,101 @@ public interface MIDLParserListener extends ParseTreeListener {
 	 */
 	void exitInteger_type(MIDLParser.Integer_typeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MIDLParser#unsigned_int}.
+	 * Enter a parse tree produced by the {@code UINT16}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnsigned_int(MIDLParser.Unsigned_intContext ctx);
+	void enterUINT16(MIDLParser.UINT16Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link MIDLParser#unsigned_int}.
+	 * Exit a parse tree produced by the {@code UINT16}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnsigned_int(MIDLParser.Unsigned_intContext ctx);
+	void exitUINT16(MIDLParser.UINT16Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link MIDLParser#signed_int}.
+	 * Enter a parse tree produced by the {@code UINT32}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
 	 * @param ctx the parse tree
 	 */
-	void enterSigned_int(MIDLParser.Signed_intContext ctx);
+	void enterUINT32(MIDLParser.UINT32Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link MIDLParser#signed_int}.
+	 * Exit a parse tree produced by the {@code UINT32}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
 	 * @param ctx the parse tree
 	 */
-	void exitSigned_int(MIDLParser.Signed_intContext ctx);
+	void exitUINT32(MIDLParser.UINT32Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UINT64}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterUINT64(MIDLParser.UINT64Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UINT64}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitUINT64(MIDLParser.UINT64Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UINT8}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterUINT8(MIDLParser.UINT8Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UINT8}
+	 * labeled alternative in {@link MIDLParser#unsigned_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitUINT8(MIDLParser.UINT8Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code INT16}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterINT16(MIDLParser.INT16Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code INT16}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitINT16(MIDLParser.INT16Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code INT32}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterINT32(MIDLParser.INT32Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code INT32}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitINT32(MIDLParser.INT32Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code INT64}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterINT64(MIDLParser.INT64Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code INT64}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitINT64(MIDLParser.INT64Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code INT8}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterINT8(MIDLParser.INT8Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code INT8}
+	 * labeled alternative in {@link MIDLParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitINT8(MIDLParser.INT8Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link MIDLParser#float_pt_type}.
 	 * @param ctx the parse tree

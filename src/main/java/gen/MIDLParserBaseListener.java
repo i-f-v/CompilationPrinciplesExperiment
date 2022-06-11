@@ -124,6 +124,18 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -244,18 +256,6 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimple_declarator(MIDLParser.Simple_declaratorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterType_spec(MIDLParser.Type_specContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -292,25 +292,97 @@ public class MIDLParserBaseListener implements MIDLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnsigned_int(MIDLParser.Unsigned_intContext ctx) { }
+	@Override public void enterUINT16(MIDLParser.UINT16Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnsigned_int(MIDLParser.Unsigned_intContext ctx) { }
+	@Override public void exitUINT16(MIDLParser.UINT16Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSigned_int(MIDLParser.Signed_intContext ctx) { }
+	@Override public void enterUINT32(MIDLParser.UINT32Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSigned_int(MIDLParser.Signed_intContext ctx) { }
+	@Override public void exitUINT32(MIDLParser.UINT32Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUINT64(MIDLParser.UINT64Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUINT64(MIDLParser.UINT64Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUINT8(MIDLParser.UINT8Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUINT8(MIDLParser.UINT8Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterINT16(MIDLParser.INT16Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitINT16(MIDLParser.INT16Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterINT32(MIDLParser.INT32Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitINT32(MIDLParser.INT32Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterINT64(MIDLParser.INT64Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitINT64(MIDLParser.INT64Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterINT8(MIDLParser.INT8Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitINT8(MIDLParser.INT8Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

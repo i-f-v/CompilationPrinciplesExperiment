@@ -5,7 +5,6 @@ import gen.MIDLParser;
 import gen.MIDLParserBaseListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -52,14 +51,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
         //声明节点，module以下的
         ASTNode moduleNode = new ASTNode(ctx.K_MODULE().getText());
         moduleNode.addChild(new ASTNode(ctx.ID().getText()));
-        moduleNode.addChild(new ASTNode(ctx.LEFT_BRACE().getText()));
         stack.push(moduleNode);
     }
 
     @Override
     public void exitModule(MIDLParser.ModuleContext ctx) {
         currentNode = stack.pop();
-        currentNode.addChild(new ASTNode(ctx.RIGHT_BRACE().getText()));
         stack.peek().addChild(currentNode);
     }
 
@@ -87,14 +84,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
         ASTNode structNode = new ASTNode(ctx.K_STRUCT().getText());
         structNode.addChild(new ASTNode(ctx.ID().getText()));
-        structNode.addChild(new ASTNode(ctx.LEFT_BRACE().getText()));
         stack.push(structNode);
     }
 
     @Override
     public void exitStruct_type(MIDLParser.Struct_typeContext ctx) {
         currentNode = stack.pop();
-        currentNode.addChild(new ASTNode(ctx.RIGHT_BRACE().getText()));
         stack.peek().addChild(currentNode);
     }
 
@@ -140,13 +135,10 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterArray_declarator(MIDLParser.Array_declaratorContext ctx) {
-        ASTNode arrayDeclaratorNode = new ASTNode();
-        arrayDeclaratorNode.addChild(
-                new ASTNode(ctx.ID().getText()));
-        if (ctx.getChildCount() == 4) {//没有EQUAL exp_list
-            arrayDeclaratorNode.addChild(
-                    new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
-        }
+
+        ASTNode arrayDeclaratorNode = new ASTNode(ctx.ID().getText());
+
+
         stack.push(arrayDeclaratorNode);
 
     }
@@ -155,10 +147,6 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     public void exitArray_declarator(MIDLParser.Array_declaratorContext ctx) {
 
         currentNode = stack.pop();
-        if (ctx.getChildCount() == 4) {
-            currentNode.addChild(
-                    new ASTNode(ctx.RIGHT_SQUARE_BRACKET().getText()));
-        }
         stack.peek().addChild(currentNode);
     }
 
@@ -299,19 +287,12 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
 
     @Override
     public void enterExp_list(MIDLParser.Exp_listContext ctx) {
-
-        ASTNode expListNode = new ASTNode();
-        expListNode.addChild(
-                new ASTNode(ctx.LEFT_SQUARE_BRACKET().getText()));
-        stack.push(expListNode);
+        super.enterExp_list(ctx);
     }
 
     @Override
     public void exitExp_list(MIDLParser.Exp_listContext ctx) {
-        currentNode = stack.pop();
-        currentNode.addChild(
-                new ASTNode(ctx.RIGHT_SQUARE_BRACKET().getText()));
-        stack.peek().addChild(currentNode);
+        super.exitExp_list(ctx);
     }
 
     @Override
@@ -346,7 +327,7 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterBase_type_spec(MIDLParser.Base_type_specContext ctx) {
         if (ctx.getChild(0).getChildCount() == 0) {//子节点为终结符
-            stack.push(new ASTNode(ctx.children.toString()));
+            stack.push(new ASTNode(ctx.children.toString(), ctx.type.getText()));
         }
 //        else super.enterBase_type_spec(ctx);
     }
@@ -371,30 +352,100 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     }
 
     @Override
-    public void enterUnsigned_int(MIDLParser.Unsigned_intContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString()));
+    public void enterUINT16(MIDLParser.UINT16Context ctx) {
+
+        stack.push(new ASTNode("[uint16]"));
     }
 
     @Override
-    public void exitUnsigned_int(MIDLParser.Unsigned_intContext ctx) {
+    public void exitUINT16(MIDLParser.UINT16Context ctx) {
         currentNode = stack.pop();
         stack.peek().addChild(currentNode);
     }
 
     @Override
-    public void enterSigned_int(MIDLParser.Signed_intContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString()));
+    public void enterUINT32(MIDLParser.UINT32Context ctx) {
+
+        stack.push(new ASTNode("[uint32]"));
     }
 
     @Override
-    public void exitSigned_int(MIDLParser.Signed_intContext ctx) {
+    public void exitUINT32(MIDLParser.UINT32Context ctx) {
         currentNode = stack.pop();
         stack.peek().addChild(currentNode);
     }
+
+    @Override
+    public void enterUINT64(MIDLParser.UINT64Context ctx) {
+
+        stack.push(new ASTNode("[uint64]"));
+    }
+
+    @Override
+    public void exitUINT64(MIDLParser.UINT64Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterUINT8(MIDLParser.UINT8Context ctx) {
+        stack.push(new ASTNode("[uint8]"));
+    }
+
+    @Override
+    public void exitUINT8(MIDLParser.UINT8Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT16(MIDLParser.INT16Context ctx) {
+        stack.push(new ASTNode("[int16]"));
+    }
+
+    @Override
+    public void exitINT16(MIDLParser.INT16Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT32(MIDLParser.INT32Context ctx) {
+        stack.push(new ASTNode("[int32]"));
+    }
+
+    @Override
+    public void exitINT32(MIDLParser.INT32Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT64(MIDLParser.INT64Context ctx) {
+        stack.push(new ASTNode("[int64]"));
+    }
+
+    @Override
+    public void exitINT64(MIDLParser.INT64Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
+    @Override
+    public void enterINT8(MIDLParser.INT8Context ctx) {
+        stack.push(new ASTNode("[int8]"));
+    }
+
+    @Override
+    public void exitINT8(MIDLParser.INT8Context ctx) {
+        currentNode = stack.pop();
+        stack.peek().addChild(currentNode);
+    }
+
 
     @Override
     public void enterFloat_pt_type(MIDLParser.Float_pt_typeContext ctx) {
-        stack.push(new ASTNode(ctx.children.toString()));
+        stack.push(new ASTNode(ctx.children.toString(), "float"));
     }
 
     @Override
@@ -406,12 +457,18 @@ public class MIDLParserCSTListener extends MIDLParserBaseListener {
     @Override
     public void enterScoped_name(MIDLParser.Scoped_nameContext ctx) {
         //将每一个终结符挂载到当前栈顶
-        List<ParseTree> scopeNameList = ctx.children;
+        StringBuilder val = new StringBuilder();
+        val.append("[[");
         for (ParseTree child :
-                scopeNameList) {
-            currentNode = new ASTNode(child.toString());
-            stack.peek().addChild(currentNode);
+                ctx.children) {
+            if (val.toString().equals("[[") && child.toString().equals("::")) {
+                continue;
+            }
+            val.append(child.toString());
         }
+        val.append("]]");
+        stack.peek().addChild(new ASTNode(val.toString()));
+
     }
 
     @Override

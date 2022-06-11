@@ -1,2 +1,5 @@
 /.gradle/
 /build/
+/TODO/
+.idea/inspectionProfiles/Project_Default.xml
+/src/test/java/tempTest/

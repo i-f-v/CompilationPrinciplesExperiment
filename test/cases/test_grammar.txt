@@ -1,3 +1,14 @@
+module a{
+    struct b{
+        struct c{
+            int8 d;
+            char e;
+        }h;
+        string f;
+    };
+};
 module test1 {
-    struct f;
+    struct f{
+        char cc;
+    };
 };

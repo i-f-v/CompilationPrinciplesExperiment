@@ -6,15 +6,23 @@ module  it {
     };
     struct b{
         string s = "a";
-        int8 i;
-        long long  lli = 1 + 2 * 3;
-        char chars[5] = ['a','b','c','d','e'];
+        uint8 i;
+        long long  lli = -1 + 2 * 3;
+        char chars[5] = ['a','b','c','d','e'], c1[4], c2 = 'z', c3;
         double f[22];
         int8 re = 0-1+2+3+4+5+6+7+8+9;
         float ff = -0.1;
         unsigned short u;
         boolean shift = 1<<1;
-        uint8 uu = 4 | 5 & 6 ^ 7;
-        :: w_w :: a scName ;
+        int8 uu = 4 | 5 & 6 ^ 7;
+        struct N {
+            int32 NN;
+        }nnnn;
+        struct M {
+           struct MM{
+                char zzz;
+           }mmm,mmm2;
+        }mm,mm2;
+        it :: w_w :: a scName ;
     };
 };

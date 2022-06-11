@@ -30,6 +30,10 @@ declarator
     | array_declarator
     ;
 
+simple_declarator:
+    ID (EQUAL or_expr)?
+    ;
+
 array_declarator: ID LEFT_SQUARE_BRACKET or_expr RIGHT_SQUARE_BRACKET (EQUAL exp_list)?;
 
 or_expr
@@ -65,16 +69,14 @@ multi_expr
 unary_expr: op = (MINUS | PLUS | WAVE)? literal;
 
 literal
-    : INTEGER
-    | FLOATING_PT
-    | CHAR
-    | STRING
-    | BOOLEAN
+    : type = (INTEGER
+        | FLOATING_PT
+        | CHAR
+        | STRING
+        | BOOLEAN)
     ;
 
 exp_list: LEFT_SQUARE_BRACKET or_expr (COMMAS or_expr)* RIGHT_SQUARE_BRACKET;
-
-simple_declarator: ID (EQUAL or_expr)?;
 
 type_spec
     : struct_type
@@ -85,9 +87,10 @@ type_spec
 base_type_spec
     : float_pt_type
     | integer_type
-    | K_CHAR
-    | K_STRING
-    | K_BOOLEAN
+    | type =
+        (K_CHAR
+        | K_STRING
+        | K_BOOLEAN)
     ;
 
 integer_type
@@ -96,17 +99,17 @@ integer_type
     ;
 
 unsigned_int
-    : (K_UNSIGNED K_SHORT | K_UINT16)
-    | (K_UNSIGNED K_LONG | K_UINT32)
-    | (K_UNSIGNED K_LONG K_LONG | K_UINT64)
-    | K_UINT8
+    : (K_UNSIGNED K_SHORT | K_UINT16)       # UINT16
+    | (K_UNSIGNED K_LONG | K_UINT32)        # UINT32
+    | (K_UNSIGNED K_LONG K_LONG | K_UINT64) # UINT64
+    | K_UINT8                               # UINT8
     ;
 
 signed_int
-    : (K_SHORT | K_INT16)
-    | (K_LONG | K_INT32)
-    | (K_LONG K_LONG | K_INT64)
-    | K_INT8
+    : (K_SHORT | K_INT16)                   # INT16
+    | (K_LONG | K_INT32)                    # INT32
+    | (K_LONG K_LONG | K_INT64)             # INT64
+    | K_INT8                                # INT8
     ;
     
 float_pt_type
