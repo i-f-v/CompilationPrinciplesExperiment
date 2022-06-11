@@ -14,7 +14,7 @@
       s
         =
         "a"
-      [int8]
+      [uint8]
       i
       [int64]
       lli
@@ -77,7 +77,7 @@
         <<
           1
           1
-      [uint8]
+      [int8]
       uu
         =
         |

@@ -114,7 +114,7 @@ public class ASTNode {
                     }
                 }
             } catch (NamingConflictException e) {
-                System.err.println("出现命名冲突");
+                System.err.println("在" + e.getPath() + "中出现命名冲突");
             } finally {
                 SymbolMap.removeName();
             }
@@ -126,7 +126,7 @@ public class ASTNode {
                 SymbolMap.insertName(
                         root.children.get(0).treeInfo, "struct");
             } catch (NamingConflictException e) {
-                System.err.println("出现命名冲突");
+                System.err.println("在" + e.getPath() + "中出现命名冲突");
             }
 
             String dType = "";
@@ -149,7 +149,7 @@ public class ASTNode {
                         try {
                             SymbolMap.insertName(n.treeInfo, dType);
                         } catch (NamingConflictException e) {
-                            System.err.println("出现命名冲突");
+                            System.err.println("在" + e.getPath() + "中出现命名冲突");
                         }
                         if (n.children.size() > 1) {
                             if (n.children.get(0).treeInfo.equals("=")) {//有赋值语句
@@ -158,7 +158,7 @@ public class ASTNode {
                             } else {//数组
                                 if (root.children.size() !=
                                         Integer.parseInt(root.children.get(0).treeInfo)) {
-                                    throw new VariableTypeConflictException();
+                                    throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                                 }
                                 for (ASTNode n1 :
                                         root.children.subList(1, root.children.size())) {
@@ -177,7 +177,7 @@ public class ASTNode {
                 SymbolMap.insertName(
                         root.children.get(0).treeInfo, "struct_in");
             } catch (NamingConflictException e) {
-                System.err.println("出现命名冲突");
+                System.err.println("在" + e.getPath() + "中出现命名冲突");
             }
             String dType = "";
 
@@ -201,15 +201,16 @@ public class ASTNode {
                         try {
                             SymbolMap.insertName(n.treeInfo, dType);
                         } catch (NamingConflictException e) {
-                            System.err.println("出现命名冲突");
+                            System.err.println("在" + e.getPath() + "中出现命名冲突");
                         }
                         if (n.children.size() > 1) {
                             if (n.children.get(0).treeInfo.equals("=")) {//有赋值语句
                                 n.setType(dType);
-                                operatorProcess(n.children.get(1), dType);          } else {//数组
+                                operatorProcess(n.children.get(1), dType);
+                            } else {//数组
                                 if (root.children.size() !=
                                         Integer.parseInt(root.children.get(0).treeInfo)) {
-                                    throw new VariableTypeConflictException();
+                                    throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                                 }
                                 for (ASTNode n1 :
                                         root.children.subList(1, root.children.size())) {
@@ -231,18 +232,21 @@ public class ASTNode {
                             .equals("int")) {//数组声明
                 if (root.children.size() > 1) {
 
-                    //todo 可以考虑一下数组长度为表达式的时候
+                    if (OperatorSet.inOpSet(root.children.get(0).treeInfo)) {//数组长度为表达式
+                        operatorProcess(root.children.get(0), "uint");
+                    }
+
                     try {
                         if (Integer.parseInt(root.children.get(0).treeInfo) < 1) {//数组长度为非正数
-                            throw new VariableTypeConflictException();
+                            throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                         } else if (
                                 !(root.children.size() ==
                                         Integer.parseInt(root.children.get(0).treeInfo))
                         ) {//数组与初始化元素个数不一致
-                            throw new VariableTypeConflictException();
+                            throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                         }
                     } catch (NumberFormatException e) {
-                        throw new VariableTypeConflictException();
+                        throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                     }
                     for (ASTNode n :
                             root.children.subList(1, root.children.size())) {
@@ -262,20 +266,22 @@ public class ASTNode {
         switch (root.children.size()) {
             case 0://字面量
                 if (!dType.startsWith(TypeSet.findType(root.treeInfo))) {//类型不匹配
-                    throw new VariableTypeConflictException();
+                    throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
 
                 }
+                break;
             case 1://单目运算符
                 if (!OperatorSet.inOpSet(root.treeInfo + "1", dType) ||
                         temp.startsWith("uint") && root.treeInfo.equals("-")
                 ) {
-                    throw new VariableTypeConflictException();
+                    throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                 }
+                break;
 
             case 2://双目运算符
             default:
                 if (!OperatorSet.inOpSet(root.treeInfo, dType)) {
-                    throw new VariableTypeConflictException();
+                    throw new VariableTypeConflictException(SymbolMap.getNamingScope() + "::" + root.treeInfo);
                 }
                 operatorProcess(root.children.get(0), dType);
                 operatorProcess(root.children.get(1), dType);

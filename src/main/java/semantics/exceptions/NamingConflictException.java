@@ -17,7 +17,7 @@ public class NamingConflictException extends Exception {
      * 1, 表示同一作用域下命名重复。
      * 2, 表示结构体未定义即使用。
      */
-    private int exceptionType;
+    private final int exceptionType;
 
     private String path;
 

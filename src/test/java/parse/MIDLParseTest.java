@@ -104,8 +104,8 @@ public class MIDLParseTest {
                             System.err.println("在" + e.getPath() +
                                     "中出现结构体未定义就使用或scoped_name引用非法");
                         } catch (VariableTypeConflictException e) {
-                            //todo
-                            System.err.println("变量类型不匹配");
+
+                            System.err.println("在" + e.getPath() + "中变量类型不匹配");
                         } finally {
                             if (writer != null) {
                                 writer.close();

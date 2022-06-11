@@ -39,9 +39,9 @@ public class OperatorSet {
             add(new Pair<>(">>", "uint"));
             add(new Pair<>("<<", "int"));
             add(new Pair<>("<<", "uint"));
-            add(new Pair<>("|", "boolean"));
-            add(new Pair<>("&", "boolean"));
-            add(new Pair<>("^", "boolean"));
+            add(new Pair<>("|", "int"));
+            add(new Pair<>("&", "int"));
+            add(new Pair<>("^", "int"));
             //Ò»ÔªÔËËã·û
             add(new Pair<>("+1", "int"));
             add(new Pair<>("+1", "uint"));

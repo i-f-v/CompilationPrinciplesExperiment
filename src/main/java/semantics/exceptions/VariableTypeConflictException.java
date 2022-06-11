@@ -27,6 +27,11 @@ public class VariableTypeConflictException extends Exception {
         this.path = path;
     }
 
+    public VariableTypeConflictException(String path) {
+
+        this.path = path;
+    }
+
     public int getExceptionType() {
         return exceptionType;
     }
